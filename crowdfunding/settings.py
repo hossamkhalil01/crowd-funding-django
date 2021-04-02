@@ -32,14 +32,15 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user',
+    'user.apps.UserConfig',
     'taggit',
-    'campaign',
+    'campaign.apps.CampaignConfig',
+    'authen.apps.AuthenConfig'
 ]
 
 AUTH_USER_MODEL = 'user.User'
