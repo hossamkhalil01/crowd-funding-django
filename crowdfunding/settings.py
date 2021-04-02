@@ -51,7 +51,10 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = 'user.User'
+<<<<<<< HEAD
 SOCIAL_AUTH_USER_MODEL = 'user.User'
+=======
+>>>>>>> Feature(auth): created custom user auth model
 
 
 MIDDLEWARE = [

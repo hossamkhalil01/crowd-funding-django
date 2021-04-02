@@ -13,12 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+<<<<<<< HEAD
 from authen import views as auth_views
+=======
+from auth import views as auth_views
+>>>>>>> Feature(auth): created custom user auth model
 from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('auth/', include('authen.urls')),
     path('social-auth/', include('social_django.urls', namespace="social")),
+=======
+    path('register/',auth_views.register, name='register'),
+>>>>>>> Feature(auth): created custom user auth model
 ]
