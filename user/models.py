@@ -57,7 +57,7 @@ class User (AbstractBaseUser, PermissionsMixin):
     email           = models.EmailField(max_length=255, verbose_name='email', unique=True)
     is_admin        = models.BooleanField(default=False)
     is_staff        = models.BooleanField(default=False)
-    is_active       = models.BooleanField(default=True)
+    is_active       = models.BooleanField(default=False)
     last_login      = models.DateTimeField(blank=True, null=True, verbose_name='last login')
     date_joined     = models.DateTimeField(auto_now_add=True)
 
