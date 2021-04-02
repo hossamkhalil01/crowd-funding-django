@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import Campaign, Category, CampaignReport, Rating, CampaignImage, Comment, CommentReport, Donation
 
+from campaign.models import *
+
 # Register your models here.
 admin.site.register(Campaign)
 admin.site.register(Category)

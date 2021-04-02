@@ -1,13 +1,20 @@
+from datetime import timedelta
+
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
 from taggit.managers import TaggableManager
+from user.models import User
 
 from user.models import User
 
 
 def in_fourteen_days():
     return timezone.now() + timedelta(days=14)
+
+
+def get_anonymous_user():
+    return User.objects.get_or_create(first_name='Anonymous',last_name='user')[0]
 
 
 class Campaign(models.Model):
@@ -19,7 +26,8 @@ class Campaign(models.Model):
     end_date = models.DateTimeField(default=in_fourteen_days)
     creation_date = models.DateTimeField(default=timezone.now)
     is_featured = models.BooleanField(default=False)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="campaign_created_by")
+
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name="campaign_created_by")
     raters = models.ManyToManyField(User, through="Rating", related_name="campaign_raters")
     donators = models.ManyToManyField(User, through="Donation", related_name="campaign_donators")
     tags = TaggableManager()
@@ -34,11 +42,14 @@ class Category(models.Model):
     def __str__(self):
         return str(self.label)
 
+    class Meta:
+        verbose_name_plural = "Categories"
+
 
 class CampaignReport(models.Model):
     details = models.TextField(max_length=2000)
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE)
-    reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="campaign_reporters")
+    reporter = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name="campaign_reporters")
 
     def __str__(self):
         return str(self.details)
@@ -46,7 +57,7 @@ class CampaignReport(models.Model):
 
 class Rating(models.Model):
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, related_name="campaign_rates")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="campaign_user_rates")
+    user = models.ForeignKey(User, on_delete=models.CASCADE,default=None, related_name="campaign_user_rates")
     value = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
 
     def __str__(self):
@@ -65,7 +76,7 @@ class Comment(models.Model):
     content = models.TextField(max_length=1000, verbose_name='Comment')
     creation_date = models.DateTimeField(default=timezone.now)
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.content)
@@ -74,7 +85,7 @@ class Comment(models.Model):
 class CommentReport(models.Model):
     details = models.TextField(max_length=2000, verbose_name='Report details')
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, related_name="comment_reports")
-    reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comment_reporters")
+    reporter = models.ForeignKey(User, on_delete=models.CASCADE,default=None, related_name="comment_reporters")
 
     def __str__(self):
         return str(self.details)
@@ -82,7 +93,7 @@ class CommentReport(models.Model):
 
 class Donation(models.Model):
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE)
-    donator = models.ForeignKey(User, on_delete=models.SET_NULL)
+    donator = models.ForeignKey(User, on_delete=models.SET(get_anonymous_user),default=None)
     amount = models.PositiveIntegerField()
 
     def __str__(self):
