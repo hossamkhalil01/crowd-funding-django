@@ -62,7 +62,9 @@ class Rating(models.Model):
 
     def __str__(self):
         return str(self.value)
-
+        
+    class Meta:
+        unique_together = ('campaign', 'user',)
 
 class CampaignImage(models.Model):
     path = models.ImageField(upload_to='static/images/', verbose_name='Image')
