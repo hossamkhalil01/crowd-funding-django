@@ -93,6 +93,5 @@ db.sqlite3
 
 .vscode
 
-# Credentials
-.email_cred
-
+# credentials
+crowdfunding/secrets.py
