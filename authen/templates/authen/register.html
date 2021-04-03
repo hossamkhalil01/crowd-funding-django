@@ -1,4 +1,15 @@
-<form method="POST" class="form-group">
-  {% csrf_token %} {{form}}
-  <button type="submit" class="btn btn-success">Register</button>
-</form>
+{% extends "authen/base.html" %} 
+
+{% block title %} 
+  Register 
+{% endblock %} 
+
+{% block content %} 
+  {% load crispy_forms_tags %}
+  <form method="POST" class="form-group">
+    {% csrf_token %} {{ form|crispy }}
+    <button type="submit" class="btn btn-primary float-right">Register</button>
+  </form>
+  <p class="text-center mt-5">If you already have an account, <a href="{% url 'login' %}">Login</a> instead.</p>
+
+{% endblock %}

@@ -28,7 +28,7 @@ class RegisterForm (forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['email','first_name','last_name','phone', 'avatar']
+        fields = ['first_name','last_name','email','phone', 'avatar']
 
 
     # Validate the password

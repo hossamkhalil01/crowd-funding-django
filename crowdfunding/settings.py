@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'taggit',
     'campaign.apps.CampaignConfig',
-    'authen.apps.AuthenConfig'
+    'authen.apps.AuthenConfig',
+    'crispy_forms',
 ]
 
 AUTH_USER_MODEL = 'user.User'
@@ -131,3 +132,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
