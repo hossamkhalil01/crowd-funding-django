@@ -121,12 +121,16 @@ AUTH_PASSWORD_VALIDATORS = [
 
 SOCIAL_AUTH_PIPELINE = (
 
-    'social_auth.backends.pipeline.social.social_auth_user',
-    'social_auth.backends.pipeline.associate.associate_by_email',
-    'social_auth.backends.pipeline.user.get_username',
-    'social_auth.backends.pipeline.user.create_user',
-    'social_auth.backends.pipeline.social.associate_user',
-    'social_auth.backends.pipeline.user.update_user_details',
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
 )
 
 AUTHENTICATION_BACKENDS = [
@@ -141,13 +145,10 @@ AUTHENTICATION_BACKENDS = [
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'email',
-    'name',
 ]
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'email',
-    'first_name',
-    'last_name',
 ]
 
 # Socail keys
@@ -184,10 +185,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-# coming from the .email_cred file
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD =''
-DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
+# coming from the secrets file
+EMAIL_HOST_USER = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # social setup
