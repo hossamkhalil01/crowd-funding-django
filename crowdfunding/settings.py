@@ -134,3 +134,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Email verifications
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# coming from the .email_cred file
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD =''
+DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'

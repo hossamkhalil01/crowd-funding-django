@@ -1,4 +1,5 @@
-from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth import logout as dj_logout
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render
 
@@ -22,3 +23,9 @@ def login (request):
         return redirect("home")
     return render(request, "authen/login.html",{"form": form})
 
+
+def logout(request):
+
+    dj_logout(request)
+    messages.info(request , "You have successfully logged out.")
+    return redirect("login")
