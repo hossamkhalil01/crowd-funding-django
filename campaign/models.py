@@ -15,10 +15,6 @@ def in_fourteen_days():
 def get_anonymous_user():
     return User.objects.get_or_create(first_name='Anonymous',last_name='user')[0]
 
-# def validate_featured(self):
-#     if (self == True and Campaign.objects.filter(is_featured=True).exclude(id=self.instance.id).count() >= 5):
-#         raise ValidationError('You already have five featured campaigns.')
-
 class Category(models.Model):
     label = models.CharField(max_length=50)
 
