@@ -1,15 +1,16 @@
 from datetime import timedelta
 
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext as _
 from taggit.managers import TaggableManager
 from user.models import User
 
 
 def in_fourteen_days():
     return timezone.now() + timedelta(days=14)
-
 
 def get_anonymous_user():
     return User.objects.get_or_create(first_name='Anonymous',last_name='user')[0]
@@ -38,6 +39,10 @@ class Campaign(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+    def clean(self):
+        if (self.is_featured == True and Campaign.objects.filter(is_featured=True).exclude(id=self.id).count() >= 5):
+            raise ValidationError({'is_featured':_('You already have five featured campaigns.')})
 
 class CampaignReport(models.Model):
     details = models.TextField(max_length=2000)
