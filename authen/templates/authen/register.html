@@ -5,11 +5,14 @@
 {% endblock %} 
 
 {% block content %} 
-  {% load crispy_forms_tags %}
-  <form method="POST" class="form-group">
-    {% csrf_token %} {{ form|crispy }}
-    <button type="submit" class="btn btn-primary float-right">Register</button>
-  </form>
-  <p class="text-center mt-5">If you already have an account, <a href="{% url 'login' %}">Login</a> instead.</p>
 
+  <div class ="container w-50 mt-5 p-3  border"> 
+    {% load crispy_forms_tags %}
+    <form method="POST" class="form-group">
+      {% csrf_token %} {{ form|crispy }}
+      <button type="submit" class="btn btn-primary float-right">Register</button>
+    </form>
+    <p class="text-center mt-5">If you already have an account, <a href="{% url 'login' %}">Login</a> instead.</p>
+  </div>
+  
 {% endblock %}
