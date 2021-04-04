@@ -11,12 +11,13 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 from .secrets import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -51,10 +52,7 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = 'user.User'
-<<<<<<< HEAD
 SOCIAL_AUTH_USER_MODEL = 'user.User'
-=======
->>>>>>> Feature(auth): created custom user auth model
 
 
 MIDDLEWARE = [
@@ -73,7 +71,7 @@ ROOT_URLCONF = 'crowdfunding.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'crowdfunding','templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -179,8 +177,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
-
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Email verifications
@@ -200,3 +196,21 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login'
+# coming from the .email_cred file
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD =''
+DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
+
+#############################################################
+# SRC: https://devcenter.heroku.com/articles/django-assets
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+# STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
+STATIC_URL = '/static/assets/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(CORE_DIR, 'crowdfunding/static/assets/'),
+)
+#############################################################
