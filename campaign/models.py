@@ -67,7 +67,7 @@ class Rating(models.Model):
         unique_together = ('campaign', 'user',)
 
 class CampaignImage(models.Model):
-    path = models.ImageField(upload_to='static/images/', verbose_name='Image')
+    path = models.ImageField(upload_to='campaign/static/images/', verbose_name='Image')
 
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, related_name="images")
 
