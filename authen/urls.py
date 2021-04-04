@@ -30,7 +30,7 @@ urlpatterns = [
     name='password_reset_done'),
 
     # Action to the link sent to email
-    path('reset/<uidb64>/<token>/', dj_auth_views.PasswordResetConfirmView.as_view(template_name='authen/password/set_new_password_form.html'),
+    path('reset/<uidb64>/<token>/', dj_auth_views.PasswordResetConfirmView.as_view(),
     name = 'password_reset_confirm'),
   
     # password reset successfully message
