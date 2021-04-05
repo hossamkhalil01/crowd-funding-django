@@ -65,10 +65,10 @@ class User (AbstractBaseUser, PermissionsMixin):
     first_name      = models.CharField(max_length=20, verbose_name='first name')
     last_name       = models.CharField(max_length=20,default='',  verbose_name='last name')
     phone           = models.CharField(max_length=15, validators=[PHONE_REGEX],  verbose_name='phone')
-    avatar          = models.ImageField(upload_to="profile_images", verbose_name='profile picture', default ='default_path')
-    country         = models.CharField(max_length=20, blank=True, null=True,  verbose_name='country')
+    avatar          = models.ImageField(upload_to="profile_images", verbose_name='profile picture', default ='profile_images/default-pic.jpeg')
+    country         = models.CharField(max_length=20, blank=True, default='',  verbose_name='country')
     birthdate       = models.DateField(blank=True, null=True, verbose_name='birthdate')
-    fb_account      = models.URLField(blank=True, null=True)
+    fb_account      = models.URLField(blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name']

@@ -94,7 +94,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label class="form-control-label" for="id_fb_account">Facebook Account</label>
-                        <input id="id_fb_account" name="fb_account" class="form-control form-control-alternative" value="{{current_user.birthdate}}" type="url">
+                        <input id="id_fb_account" name="fb_account" class="form-control form-control-alternative" value="{{current_user.fb_account}}" type="url">
                       </div>
                     </div>
                   </div>
@@ -116,7 +116,8 @@
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label" for="id_birthdate">Birthdate</label>
-                        <input id="id_birthdate" name="birthdate" class="form-control form-control-alternative" value="{{current_user.birthdate}}" type="date">
+                        {{current_user.birthdate}}
+                        <input type="date" id="id_birthdate" name="birthdate" class="form-control form-control-alternative" value="{{current_user.birthdate}}">
                       </div>
                     </div>
                   </div>

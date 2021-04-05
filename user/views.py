@@ -17,6 +17,7 @@ def edit(request, user_id):
         return render(request, 'user/edit.html', {'current_user': current_user, 'form': form})
     else:
         current_user = User.objects.get(id=user_id)
+        print(request.POST)
         form = UserForm(request.POST, request.FILES, instance=current_user)
         if form.is_valid():
             user = form.save(commit=False)
