@@ -18,5 +18,5 @@ def show(request, campaign_id):
     if donations is None:
         donations = 0
     tags = campaign.tags.all()
-    delta = timezone.now()- campaign.creation_date
-    return render(request, 'campaign/show.html' , {'campaign_info' : campaign ,'images':images,'rating':average_rating*25 , 'tags':tags , 'donations':donations , 'days':delta.days})
+    delta = timezone.now()- campaign.start_date
+    return render(request, 'campaign/show.html' , {'campaign_info' : campaign ,'images':images,'rating':average_rating*20 , 'tags':tags , 'donations':donations , 'days':delta.days})
