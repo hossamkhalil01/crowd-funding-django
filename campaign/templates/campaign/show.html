@@ -1,0 +1,126 @@
+{% extends 'layouts/base-default.html'%}
+{% load static %} {% load humanize %}{% load mathfilters %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" type="text/css" href="{% static 'campaign/show.css' %}"/>
+{% endblock %}
+
+{% block content %}
+  {% include 'includes/header.html' %}
+  <div class="card">
+      {% if images|length > 0  %}
+      <div class="images">
+        <div
+          id="carouselExampleControls"
+          class="carousel slide"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-inner">
+            {% for image in images %} {% if forloop.first %}
+            <div class="carousel-item active">
+              {% else %}
+              <div class="carousel-item">
+                {% endif %}
+                <img src="/{{image.path}}" class="d-block w-100" alt="..." />
+            </div>
+            {% endfor %}
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev"
+            >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleControls"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="grid-container">
+          <div class="details">
+          <div class="information">
+              <h1>{{campaign_info.title}}</h1>
+              <h5>{{campaign_info.creator}} is organizing this fundraiser.</h5>
+              <div class="card category">
+              <p>{{campaign_info.category}}</p>
+              </div>
+              <p>{{campaign_info.details}}</p>
+          </div>
+          </div>
+          <div class="donations">
+          <progress
+              class="a-progress-bar a-progress-bar--blue"
+              value="{{ donations|div:campaign_info.target|mul:100 }}"
+              max="100"
+          ></progress>
+          <h2 class="m-progress-meter-heading">
+              {{donations|intcomma }}EGP
+              <span class="text-stat text-stat-title">
+              raised of {{campaign_info.target|intcomma}} EGP goal</span>
+          </h2>
+          </div>
+
+          <div class="tags">
+          {% for tag in tags|slice:"10" %}
+          <span class="badge bg-success">{{tag}}</span>
+          {% endfor %}
+          </div>
+
+          <div class="rating">
+          <svg viewBox="0 0 1000 200" class="rating">
+              <defs>
+              <polygon
+                  id="star"
+                  points="100,0 131,66 200,76 150,128 162,200 100,166 38,200 50,128 0,76 69,66 "
+              />
+
+              <clipPath id="stars">
+                  <use xlink:href="#star" />
+                  <use xlink:href="#star" x="20%" />
+                  <use xlink:href="#star" x="40%" />
+                  <use xlink:href="#star" x="60%" />
+                  <use xlink:href="#star" x="80%" />
+              </clipPath>
+              </defs>
+
+              <rect class="rating__background" clip-path="url(#stars)"></rect>
+              <rect
+              width="{{rating}}%"
+              class="rating__value"
+              clip-path="url(#stars)"
+              ></rect>
+          </svg>
+          </div>
+
+          <div class="days">
+          <p>Created {{days}} days ago.</p>
+          </div>
+      </div>
+  </div>
+
+  <div class="container w-25">
+      <a class="btn btn-lg btn-primary" href="{% url 'campaign_donate' campaign_info.id %}" role="button">Donate</a>
+  </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous">
+  </script>   
+{% endblock %}
+

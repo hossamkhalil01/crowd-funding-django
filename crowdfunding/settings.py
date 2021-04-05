@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
+
+from django.contrib.messages import constants as messages
 
 from .secrets import *
 
@@ -49,6 +51,10 @@ INSTALLED_APPS = [
     'authen.apps.AuthenConfig',
     'crispy_forms',
     'social_django',
+
+    # templates
+    'django.contrib.humanize',
+    'mathfilters',
 ]
 
 AUTH_USER_MODEL = 'user.User'
@@ -179,6 +185,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static/assets')
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Email verifications
@@ -193,26 +205,16 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # social setup
-
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login'
-# coming from the .email_cred file
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD =''
-DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/assets')
-]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Configuring messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
 
+# media uploading
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-print("****************************")
-print(BASE_DIR)
-print(CORE_DIR)
-print("****************************")
-

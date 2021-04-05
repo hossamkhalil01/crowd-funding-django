@@ -14,6 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from authen import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
@@ -21,5 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authen.urls')),
     path('social-auth/', include('social_django.urls', namespace="social")),
+    path('campaign/', include('campaign.urls')),
     path('user/', include('user.urls')),
-]
+    
+    ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
