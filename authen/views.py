@@ -21,13 +21,10 @@ def register(request):
     form = RegisterForm(request.POST or None)
 
     if form.is_valid():
-        user = form.save(commit=False)
+        user = form.save()
 
         # send activation mail
         send_activation_email(request,form.cleaned_data.get('email'), user)
-
-        # save the user
-        user.save()
 
         return redirect("login")
     return render(request, "authen/register.html", {"form":form})
@@ -56,10 +53,10 @@ activation_token = TokenGenerator()
 def activate(request, uidb64, token):
 
     # Decode the token
-    uid = force_text(urlsafe_base64_decode(uidb64))
+    uid = urlsafe_base64_decode(uidb64).decode()
     user = User.objects.get(pk=uid)
     try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
+        uid = urlsafe_base64_decode(uidb64).decode()
         user = User.objects.get(pk=uid)
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None 
@@ -89,7 +86,7 @@ def send_activation_email(request, receiver_email, user):
 
         'user':user,
         'domain': current_site.domain,
-        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'uid': urlsafe_base64_encode(force_bytes(user.id)),
         'token': activation_token.make_token(user),
     })
 
@@ -99,7 +96,6 @@ def send_activation_email(request, receiver_email, user):
 
     # send the email
     email.send()
-
 
 
 def _redirect(request,url):
