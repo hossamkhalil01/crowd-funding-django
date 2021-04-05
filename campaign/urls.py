@@ -5,5 +5,5 @@ from django.urls import path
 from .views import campaign
 
 urlpatterns = [
-    url(r'^(?P<campaign_id>\d+)/$', campaign.show, name='campaign_show'),
+    url(r'^show/(?P<campaign_id>\d+)/$', campaign.show, name='campaign_show'),
 ]
