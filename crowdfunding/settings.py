@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+from django.contrib.messages import constants as messages
+
 from .secrets import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -197,3 +199,8 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login'
+
+# Configuring messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}

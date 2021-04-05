@@ -2,8 +2,9 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path
 
-from .views import campaign
+from .views import campaign, donation
 
 urlpatterns = [
-    url(r'^(?P<campaign_id>\d+)/$', campaign.show, name='campaign_show'),
+    path('<int:campaign_id>', campaign.show, name='campaign_show'),
+    path('donate/<int:campaign_id>', donation.donate, name='campaign_donate'),
 ]
