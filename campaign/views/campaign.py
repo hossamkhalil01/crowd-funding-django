@@ -1,6 +1,9 @@
+import datetime
+
 from django.db.models import Avg, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
 
 from ..models import Campaign, CampaignImage, Rating
 
@@ -15,4 +18,5 @@ def show(request, campaign_id):
     if donations is None:
         donations = 0
     tags = campaign.tags.all()
-    return render(request, 'campaign/show.html' , {'campaign_info' : campaign ,'images':images,'rating':average_rating*25 , 'tags':tags , 'donations':donations})
+    delta = timezone.now()- campaign.creation_date
+    return render(request, 'campaign/show.html' , {'campaign_info' : campaign ,'images':images,'rating':average_rating*25 , 'tags':tags , 'donations':donations , 'days':delta.days})

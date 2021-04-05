@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 from .secrets import *
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
     'authen.apps.AuthenConfig',
     'crispy_forms',
     'social_django',
+    'django.contrib.humanize',
+    'mathfilters',
 ]
 
 AUTH_USER_MODEL = 'user.User'
@@ -177,6 +180,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
