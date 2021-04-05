@@ -1,10 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Trade+Winds&display=swap");
-body {
-  background: #fff;
-  padding: 5em;
-  font-family: Montserrat;
-}
-
 svg {
   margin-bottom: 2em;
 }
@@ -42,9 +36,10 @@ svg {
   -webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
 }
 
-.card {
+#camp-desc{
   background-color: rgba(252, 246, 250, 0.979);
   border-radius: 1rem;
+  margin: 2vh 7vw;
 }
 
 .details {
@@ -110,4 +105,42 @@ svg {
 .rating {
   width: 7rem;
   margin: auto;
+}
+
+.carousel-item {
+  position: relative;
+  display: none;
+  align-items: center;
+  width: 100%;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+.carousel-control-next, .carousel-control-prev {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+  background: 0 0;
+  border: 0;
+  opacity: .5;
+  transition: opacity .15s ease;
+}
+
+.visually-hidden, .visually-hidden-focusable:not(:focus):not(:focus-within) {
+  position: absolute!important;
+  width: 1px!important;
+  height: 1px!important;
+  padding: 0!important;
+  margin: -1px!important;
+  overflow: hidden!important;
+  clip: rect(0,0,0,0)!important;
+  white-space: nowrap!important;
+  border: 0!important;
 }
