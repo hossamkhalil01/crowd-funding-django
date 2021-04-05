@@ -6,5 +6,5 @@ from .views import campaign, donation
 
 urlpatterns = [
     path('<int:campaign_id>', campaign.show, name='campaign_show'),
-    path('donate/<int:campaign_id>', donation.donate, name='campaign_donate'),
+    path('<int:campaign_id>/donate', donation.donate, name='campaign_donate'),
 ]
