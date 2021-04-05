@@ -25,10 +25,9 @@ svg {
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 0.7fr 0.7fr 1fr;
-  grid-template-rows: 1.5fr 0.4fr 0.1fr 0.1fr 0.1fr;
+  grid-template-rows: 0.4fr 0.1fr 0.1fr 0.1fr;
   gap: 0px 0px;
   grid-template-areas:
-    "images images images images"
     "details details details details"
     "... days rating ..."
     "donations donations donations donations"
@@ -37,16 +36,17 @@ svg {
 
 .images {
   margin: 20px;
-  grid-area: images;
   border-radius: 2rem;
   box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
--moz-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
--webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+  -moz-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+  -webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
 }
 
-.card{
-  background-color: rgb(252, 246, 250);
+.card {
+  background-color: rgba(252, 246, 250, 0.979);
+  border-radius: 1rem;
 }
+
 .details {
   grid-area: details;
 }
@@ -61,39 +61,53 @@ svg {
 .tags {
   grid-area: tags;
   text-align: center;
+  margin: 10px 10px;
+
 }
 .days {
   grid-area: days;
+  margin: auto;
 }
-.carousel-item img{
+.days p{
+  margin: auto;
+}
+.carousel-item img {
   max-height: 60vh;
-
 }
 
-.information{
+.information {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.information h1{ color:rgb(88, 0, 129);}
-.information h2{ color:rgb(82, 56, 80);}
-.information p{ text-align: center;
-margin: 10px 20px; }
+.information h1 {
+  color: rgb(88, 0, 129);
+}
+.information h4 {
+  color: rgb(82, 56, 80);
+}
+.information p {
+  text-align: center;
+  margin: 10px 20px;
+}
 
-.donations progress{
-  width:95%;
-  margin:10px;
+.donations progress {
+  width: 95%;
+  margin: 10px;
 }
 
 .text-stat-title {
   color: #767676;
   font-weight: 400;
-  font-size: .875rem;
-    line-height: 1.21;
+  font-size: 0.875rem;
+  line-height: 1.21;
 }
-.donations h2{text-align: center}
+.donations h2 {
+  text-align: center;
+}
 
-.rating{
-  width:7rem;
+.rating {
+  width: 7rem;
+  margin: auto;
 }
