@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import login as dj_login
 from django.contrib.auth import logout as dj_logout
+from django.contrib.auth import login as dj_login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.tokens import \
     PasswordResetTokenGenerator as TokenGenerator
@@ -36,7 +37,7 @@ def login (request):
     if form.is_valid():
         dj_login(request, form.user_cache)
         return redirect("home")
-    return render(request, "authen/login.html",{"form": form})
+    return render(request, "authen/login.html", {"form": form})
 
 
 def logout(request):
