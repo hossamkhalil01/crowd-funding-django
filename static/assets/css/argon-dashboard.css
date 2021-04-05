@@ -20682,4 +20682,12 @@ pre>code.highlight {
   margin-left: 1rem;
 }
 
+.btn-border {
+    border: 2px solid;
+    border-color: rgba(255, 255, 255, 0.6);
+}
+.btn-border:hover {
+    background-color: transparent;
+}
+
 /*# sourceMappingURL=dashboard-free.css.map */

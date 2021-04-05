@@ -71,7 +71,8 @@ ROOT_URLCONF = 'crowdfunding.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'crowdfunding','templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                 'user.templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,6 +80,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -152,7 +154,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'email',
 ]
 
-# Socail keys
+# Social keys
 
 SOCIAL_AUTH_FACEBOOK_KEY = SOCIAL_AUTH_FACEBOOK_KEY    # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET =SOCIAL_AUTH_FACEBOOK_SECRET  # App Secret
@@ -201,16 +203,16 @@ EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD =''
 DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
 
-#############################################################
-# SRC: https://devcenter.heroku.com/articles/django-assets
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static/assets')
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
-# STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
-STATIC_URL = '/static/assets/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+print("****************************")
+print(BASE_DIR)
+print(CORE_DIR)
+print("****************************")
 
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(CORE_DIR, 'crowdfunding/static/assets/'),
-)
-#############################################################

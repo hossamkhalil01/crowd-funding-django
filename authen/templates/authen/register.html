@@ -8,7 +8,7 @@
 
   <div class ="container w-50 mt-5 p-3  border"> 
     {% load crispy_forms_tags %}
-    <form method="POST" class="form-group">
+    <form method="POST" class="form-group" enctype="multipart/form-data">
       {% csrf_token %} {{ form|crispy }}
       <button type="submit" class="btn btn-primary float-right">Register</button>
     </form>
