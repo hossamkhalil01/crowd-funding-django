@@ -94,11 +94,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label class="form-control-label" for="id_fb_account">Facebook Account</label>
-<<<<<<< HEAD
                         <input id="id_fb_account" name="fb_account" class="form-control form-control-alternative" value="{{current_user.fb_account}}" type="url">
-=======
-                        <input id="id_fb_account" name="fb_account" class="form-control form-control-alternative" value="{{current_user.birthdate}}" type="url">
->>>>>>> a55a54ed63cd4c59c2a345d71b39614c3e2c8f60
                       </div>
                     </div>
                   </div>
@@ -120,7 +116,7 @@
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label" for="id_birthdate">Birthdate</label>
-                        <input id="id_birthdate" name="birthdate" class="form-control form-control-alternative" value="{{current_user.birthdate}}" type="date">
+                        <input id="id_birthdate" name="birthdate" class="form-control form-control-alternative" value="{{current_user.birthdate|date:'Y-m-d'}}" type="date">
                       </div>
                     </div>
                   </div>
