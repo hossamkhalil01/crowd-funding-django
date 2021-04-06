@@ -115,7 +115,7 @@
 <hr>
 <form method="POST" class="reply-form" id="comment-form" action="{% url 'campaign_comment' campaign_info.id %} ">
     {% csrf_token %}
-    <textarea placeholder="Reply to comment" rows="4" required></textarea>
+    <textarea name="content" placeholder="Reply to comment" rows="4" required></textarea>
     <button class="btn-success" style="{float:right;}" type="submit">Submit</button>
 </form>
 <div class="comment-thread">
@@ -141,7 +141,7 @@
                 <button type="button">Report</button>
 
                 <form method="POST" class="reply-form d-none" id="comment-1-reply-form" >
-                    <textarea placeholder="Reply to comment" rows="4" required ></textarea>
+                    <textarea name="content" placeholder="Reply to comment" rows="4" required ></textarea>
                     <button type="submit">Submit</button>
                     <button type="button" data-toggle="reply-form" data-target="comment-1-reply-form">Cancel</button>
                 </form>
@@ -152,7 +152,7 @@
                 <summary>
                     <div class="comment-heading">
                         <div class="comment-info">
-                            <img id="comment_avatar" src={{comment.creator.avatar.url}}>
+                            <img id="comment_avatar" src={{reply.creator.avatar.url}}>
                             <a href="#" class="comment-author">{{reply.creator}}</a>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
                     <button type="button">Report</button>
                     <form method="POST" class="reply-form d-none" id="comment-2-reply-form" action="{% url 'campaign_reply' campaign_info.id comment.id %} ">
                         {% csrf_token %}
-                        <textarea placeholder="Reply to comment" rows="4" required></textarea>
+                        <textarea name="content" placeholder="Reply to comment" rows="4" required></textarea>
                         <button type="submit">Submit</button>
                         <button type="button" data-toggle="reply-form" data-target="comment-2-reply-form">Cancel</button>
                     </form>

@@ -3,10 +3,11 @@ import datetime
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg, Sum
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
-from ..models import Campaign, CampaignImage, Donation, Rating
+from ..models import Campaign, CampaignImage, Comment, Donation, Rating
 
 
 def show(request, campaign_id):
@@ -28,10 +29,17 @@ def show(request, campaign_id):
 
 @login_required
 def comment(request, campaign_id):
-    if request.is_ajax and request.method == "POST":
-        pass
+    campaign = Campaign.objects.get(pk=campaign_id)
+    Comment.objects.create(
+        content= request.POST.get('content') , campaign= campaign , creator= request.user
+    )
+    return HttpResponse("<p>CommentPosted</p>")
 
 @login_required
 def reply(request, campaign_id , comment_id):
-    if request.is_ajax and request.method == "POST":
-        pass
+    campaign = Campaign.objects.get(pk=campaign_id)
+    comment = Comment.objects.get(pk=comment_id)
+    Comment.objects.create(
+        content= request.POST.get('content') , campaign= campaign , parent= comment , creator= request.user
+    )
+    return HttpResponse("<p>ReplyPosted</p>")
