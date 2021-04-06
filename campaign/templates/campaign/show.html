@@ -113,6 +113,43 @@
       <a class="btn btn-lg btn-primary" href="{% url 'campaign_donate' campaign_info.id %}" role="button">Donate</a>
   </div>
 
+  {% comment %} Report {% endcomment %}
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Report
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Report Ticket </h3>
+        </div>
+        <div class="modal-body">
+          <p>Tell us what went wrong!</p>
+
+          <form method="post" action="{% url 'campaign_report' campaign_info.id %}">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="subject" class="form-label">Subject</label>
+              <input type="text" name="subject" class="form-control" id="subject" placeholder="What is the report about?" required >
+            </div>
+            <div class="mb-3">
+              <label for="details" class="form-label">Details</label>
+              <textarea class="form-control" name="details" id="details" rows="3" placeholder="give us more details.." required></textarea>
+            </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+
 {% endblock %}
 
 
