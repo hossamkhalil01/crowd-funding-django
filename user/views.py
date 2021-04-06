@@ -24,3 +24,8 @@ def edit(request, user_id):
             user.set_password(form.cleaned_data.get('password'))
             user.save()
             return redirect('user_profile')
+
+def delete(request, user_id):
+    current_user = get_object_or_404(User, id=user_id)
+    current_user.delete()
+    return redirect('logout')
