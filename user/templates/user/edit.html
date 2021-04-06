@@ -1,0 +1,140 @@
+{% extends 'layouts/base-default.html' %}
+
+{% block title %} Profile {% endblock title %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+         style="min-height: 600px; background-image: url(/static/assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Hello</h1>
+            <h2 class="text-white">{{ current_user }}</h2>
+            <p class="text-white mt-0 mb-5">This is your profile page. You can review all your personal information</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid mt--7">
+
+      <div class="row justify-content-center">
+        <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-4">
+                  <h3 class="mb-0">My account</h3>
+                </div>
+                <div class="col-4 mb-6">
+                  <div class="card-profile-image">
+                    <img src="..{{current_user.avatar.url}}" class="rounded-circle">
+                  </div>
+                </div>
+                <div class="col-4 text-right">
+                  <a class="btn btn-sm btn-danger">Delete Account</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form action="{% url 'user_edit' user.id %}" method="post" enctype="multipart/form-data">
+                 {% csrf_token %}
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_first_name">First name</label>
+                        <input type="text" name="first_name" id="id_first_name" class="form-control form-control-alternative"
+                        value="{{current_user.first_name}}" maxlength="20" required>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_last_name">Last name</label>
+                        <input type="text" name="last_name" id="id_last_name" class="form-control form-control-alternative"
+                        value="{{current_user.last_name}}" maxlength="20" required >
+                      </div>
+                    </div>
+                  </div>
+                        <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_password">Password</label>
+                        <input type="password" name="password" id="id_password" autocomplete="new-password" class="form-control form-control-alternative"
+                              maxlength="128" required>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Email address</label>
+                        <input type="email" id="input-email" class="form-control form-control-alternative"
+                               placeholder="{{ current_user.email }}" readonly>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_phone">Phone</label>
+                        <input id="id_phone" name="phone" class="form-control form-control-alternative" value="{{current_user.phone}}" type="text"
+                        maxlength="15" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_fb_account">Facebook Account</label>
+                        <input id="id_fb_account" name="fb_account" class="form-control form-control-alternative" value="{{current_user.fb_account}}" type="url">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_avatar">Profile Picture</label>
+                        <input type="file" accept="image/*" name="avatar" id="id_avatar" class="form-control form-control-alternative"
+                               value="{{current_user.avatar}}">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_country">Country</label>
+                        <input type="text" name="country" id="id_country" class="form-control form-control-alternative"
+                               value="{{current_user.country}}" maxlength="20">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_birthdate">Birthdate</label>
+                        <input id="id_birthdate" name="birthdate" class="form-control form-control-alternative" value="{{current_user.birthdate|date:'Y-m-d'}}" type="date">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row justify-content-center">
+                  <button type="submit" class="btn btn-info">Edit Profile</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
