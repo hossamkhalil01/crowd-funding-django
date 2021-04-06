@@ -1,6 +1,7 @@
 import datetime
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Avg, Sum
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -19,8 +20,18 @@ def show(request, campaign_id):
         donations = 0
     tags = campaign.tags.all()
     delta = timezone.now()- campaign.start_date
-
+    comments = campaign.comments.all()
     context = {'campaign_info' : campaign ,'images':images,'rating':average_rating*20 ,
-     'tags':tags , 'donations':donations , 'days':delta.days}
+     'tags':tags , 'donations':donations , 'days':delta.days , 'comments':comments}
      
     return render(request, 'campaign/show.html' , context)
+
+@login_required
+def comment(request, campaign_id):
+    if request.is_ajax and request.method == "POST":
+        pass
+
+@login_required
+def reply(request, campaign_id , comment_id):
+    if request.is_ajax and request.method == "POST":
+        pass
