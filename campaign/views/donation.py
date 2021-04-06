@@ -17,7 +17,7 @@ def donate(request,campaign_id):
         # validate
         if amount and amount.isnumeric():
             
-            apply_user_donation(campaign,request.user,amount)
+            apply_donation(campaign,request.user,amount)
 
             # messages.success(request, 'Your Donation Was Successfully Completed!')
             return redirect('campaign_show', campaign_id)
@@ -29,7 +29,7 @@ def donate(request,campaign_id):
     return render(request, 'campaign/donation.html', context)
 
 
-def apply_user_donation(campaign, user, amount):
+def apply_donation(campaign, user, amount):
 
     prev_donations = campaign.donations.filter(donator_id=user.id)
 
