@@ -114,7 +114,7 @@
 
       {% comment %} donation  {% endcomment %}
     <div class="m-auto">
-       <a class="btn btn-lg btn-primary" href="{% url 'campaign_rate' campaign_info.id %}" role="button">Donate now</a>
+       <a class="btn btn-lg btn-primary" href="{% url 'campaign_donate' campaign_info.id %}" role="button">Donate now</a>
     </div>
 
     {% comment %} rating  {% endcomment %}
@@ -123,23 +123,16 @@
           <form method="post" action="{% url 'campaign_rate' campaign_info.id %}">
             {% csrf_token %}  
             <span class="input-group-text">Help this campaign by rating?</span>
-            <div class="rate">
-              
-              <label for="rate-5"></label>
-              <input type="radio" name="rate" id="rate-5" value="5">
+            <div class="rate">  
+              {% for level in rating_range %}
+                {% if user_rating == level %}
+                  <input type="radio" name="rate" id="rate-{{level}}" value="{{level}}" checked>
+                {% else %}
+                  <input type="radio" name="rate" id="rate-{{level}}" value="{{level}}">
+                {% endif %}
+                  <label for="rate-{{level}}"></label>
+              {% endfor %}
 
-              <label for="rate-4"></label>
-              <input type="radio" name="rate" id="rate-4" value="4">
-
-              <label for="rate-3"></label>
-              <input type="radio" name="rate" id="rate-3" value="3">
-              
-              <label for="rate-2"></label>
-              <input type="radio" name="rate" id="rate-2" value="2">
-              
-              <label for="rate-1"></label>
-              <input type="radio" name="rate" id="rate-1" value="1">
-              
             </div>
 
             <div class="d-flex flex-column align-items-center">

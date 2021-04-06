@@ -5,14 +5,10 @@ import logging
 
 from ..models import Campaign, Rating
 
-logger = logging.getLogger(__name__)
-
 
 @login_required
 def rate(request, campaign_id):
 
-    logger.error("************")
-    logger.error(request.POST)
     if request.method == "POST":
         campaign = get_object_or_404(Campaign, pk=campaign_id)
         context = {"campaign": campaign}

@@ -157,7 +157,7 @@ svg {
 }
 
 .feedback {
-  /* max-width: 360px;
+  max-width: 360px;
   background-color: #fff;
   width: 100%;
   padding: 30px;
@@ -165,44 +165,6 @@ svg {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  align-items: center; */
+  align-items: center;
   box-shadow: 0 4px 30px rgba(0,0,0,.05);
 }
-
-
-
-/* .rate {
-  float: left;
-  height: 46px;
-  padding: 0 10px;
-}
-.rate:not(:checked) > input {
-  position:absolute;
-  top:-9999px;
-}
-.rate:not(:checked) > label {
-  float:right;
-  width:1em;
-  overflow:hidden;
-  white-space:nowrap;
-  cursor:pointer;
-  font-size:30px;
-  color:#ccc;
-}
-.rate:not(:checked) > label:before {
-  content: '★ ';
-}
-.rate > input:checked ~ label {
-  color: #ffc700;    
-}
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-  color: #deb217;  
-}
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-  color: #c59b08;
-} */
