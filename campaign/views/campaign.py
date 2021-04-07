@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.http import JsonResponse
 from django.core import serializers
 from ..models import Campaign
+from taggit.models import Tag
 
 
 def show(request, campaign_id):
@@ -46,12 +47,23 @@ def search(request):
         # get the searching key
         search_key = request.GET.get('key')
 
-        # return all campaigns
-        campaigns = Campaign.objects.filter(title__icontains=search_key)
-        print(campaigns)
+        # return matched campaigns
+        matched_by_title = Campaign.objects.filter(
+            title__icontains=search_key)[:5]
         # TODO: get the tags taht have the key
 
-        # serialize the result
-        campaigns = serializers.serialize('json', campaigns)
+        # return matched tags
+        tags = Tag.objects.filter(name__icontains=search_key)[:5]
 
-        return JsonResponse({"campaigns": campaigns, "q": search_key})
+        # get list of tags ids
+        tags_ids = []
+        for tag in tags:
+            tags_ids.append(tag.id)
+
+        matched_by_tags = Campaign.objects.filter(tags__id__in=tags_ids)
+
+        # serialize the result
+        matched_by_title = serializers.serialize('json', matched_by_title)
+        matched_by_tags = serializers.serialize('json', matched_by_tags)
+
+        return JsonResponse({"by_title": matched_by_title, "by_tags": matched_by_tags})
