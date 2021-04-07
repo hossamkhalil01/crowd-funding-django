@@ -13,10 +13,10 @@ def profile(request):
     current_user_campaigns = Campaign.objects.filter(creator_id=request.user.id)
     campaigns = []
     for current_user_campaign in current_user_campaigns:
-        one_image = current_user_campaign.images.all()[0]
-        print("********************************")
-        print(one_image)
-        campaigns.append({
+        one_image = current_user_campaign.images.all()
+        if one_image:
+            one_image = one_image[0]
+            campaigns.append({
             'id': int(current_user_campaign.id),
             'title': current_user_campaign.title,
             'details': current_user_campaign.details,
@@ -27,9 +27,11 @@ def profile(request):
 @login_required
 def donations(request):
     current_user_donations = Donation.objects.filter(donator_id=request.user.id)
+    campaigns = Campaign.objects.all()
     return render(request, 'profile/index.html', {'current_user_donations': current_user_donations,
-    'donations': True})
+    'campaigns':campaigns, 'donations': True})
 
+@login_required
 def edit(request):
     if request.method == "GET":
         current_user = request.user
