@@ -65,7 +65,7 @@
               </div>
             </div>
             <div class="card-body">
-              <form action="{% url 'user_edit' user.id %}" method="post" enctype="multipart/form-data">
+              <form action="{% url 'user_edit' %}" method="post" enctype="multipart/form-data">
                  {% csrf_token %}
                 <h6 class="heading-small text-muted mb-4">User information</h6>
                 <div class="pl-lg-4">
