@@ -7,7 +7,11 @@
 
 {% block content %}
     {% include 'includes/header.html' %}
-    {% include 'profile/campaigns.html' %}
+    {% if donations %}
+        {% include 'profile/donations.html' %}    
+    {% else %}
+        {% include 'profile/campaigns.html' %}
+    {% endif %}
 {% endblock content %}
 
 <!-- Specific JS goes HERE -->

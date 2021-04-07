@@ -1,5 +1,5 @@
 from .models import User
-from campaign.models import Campaign
+from campaign.models import Campaign, Donation
 from .forms import UserForm
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -14,17 +14,21 @@ def profile(request):
     campaigns = []
     for current_user_campaign in current_user_campaigns:
         one_image = current_user_campaign.images.all()[0]
+        print("********************************")
+        print(one_image)
         campaigns.append({
             'id': int(current_user_campaign.id),
             'title': current_user_campaign.title,
             'details': current_user_campaign.details,
             'image': one_image.path.url
         })
-    return render(request, 'profile/index.html', {'campaigns': campaigns})
+    return render(request, 'profile/index.html', {'campaigns': campaigns, 'donations': False})
 
 @login_required
 def donations(request):
-    return render(request, 'profile/index.html', {'campaigns': campaigns})
+    current_user_donations = Donation.objects.filter(donator_id=request.user.id)
+    return render(request, 'profile/index.html', {'current_user_donations': current_user_donations,
+    'donations': True})
 
 def edit(request):
     if request.method == "GET":
