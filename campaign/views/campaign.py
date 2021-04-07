@@ -1,4 +1,5 @@
 import datetime
+
 from django.contrib import messages
 from django.db.models import Avg, Sum
 from django.shortcuts import get_object_or_404, redirect, render
@@ -30,8 +31,13 @@ def show(request, campaign_id):
         donations = 0
     tags = campaign.tags.all()
     delta = timezone.now() - campaign.start_date
-
+    similar_camps = campaign.tags.similar_objects()
     context = {'campaign_info': campaign, 'images': images, 'rating': average_rating*20,
-               'tags': tags, 'donations': donations, 'days': delta.days, 'user_rating': user_rating, 'rating_range': range(5, 0, -1)}
-
+               'tags': tags, 'donations': donations, 'days': delta.days, 'user_rating': user_rating, 'rating_range': range(5, 0, -1) ,'similar_camps': similar_camps}
     return render(request, 'campaign/show.html', context)
+
+
+def cancel(request, campaign_id):
+    campaign = get_object_or_404(Campaign, id=campaign_id)
+    campaign.delete()
+    return redirect('user_profile')
