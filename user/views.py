@@ -1,20 +1,31 @@
 from .models import User
+from campaign.models import Campaign
 from .forms import UserForm
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.db.models import Avg, Sum
 
 # Create your views here.
 
 @login_required
-def home(request):
-    return render(request, 'home/index.html')
+def profile(request):
+    current_user_campaigns = Campaign.objects.filter(creator_id=request.user.id)
+    campaigns = []
+    for current_user_campaign in current_user_campaigns:
+        one_image = current_user_campaign.images.all()[0]
+        campaigns.append({
+            'id': int(current_user_campaign.id),
+            'title': current_user_campaign.title,
+            'details': current_user_campaign.details,
+            'image': one_image.path.url
+        })
+    return render(request, 'profile/index.html', {'campaigns': campaigns})
 
 def edit(request, user_id):
     if request.method == "GET":
         current_user = User.objects.get(id=user_id)
-        form = UserForm(instance=current_user)
-        return render(request, 'user/edit.html', {'current_user': current_user, 'form': form})
+        return render(request, 'user/edit.html', {'current_user': current_user})
     else:
         current_user = User.objects.get(id=user_id)
         print(request.POST)

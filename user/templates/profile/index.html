@@ -1,4 +1,4 @@
-{% extends 'layouts/base-default.html' %}
+{% extends 'layouts/base.html' %}
 
 {% block title %} Dashboard {% endblock title %}
 
@@ -7,7 +7,7 @@
 
 {% block content %}
     {% include 'includes/header.html' %}
-
+    {% include 'profile/campaigns.html' %}
 {% endblock content %}
 
 <!-- Specific JS goes HERE -->
