@@ -1,3 +1,4 @@
+{% load humanize %}
     <div class="container-fluid mt--7">
 
       <!-- Table -->
@@ -30,7 +31,7 @@
                       </div>
                     </th>
                     <td>
-                      {{donation.amount}} EGP
+                      {{donation.amount|intcomma}} EGP
                     </td>
                   </tr>
                   {% endfor %}

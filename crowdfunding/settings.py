@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'taggit',
     'campaign.apps.CampaignConfig',
+    'home',
 
     # Auth and social auth
     'authen.apps.AuthenConfig',

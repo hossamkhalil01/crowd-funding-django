@@ -22,13 +22,13 @@ def profile(request):
             'details': current_user_campaign.details,
             'image': one_image.path.url
         })
-    return render(request, 'profile/index.html', {'campaigns': campaigns, 'donations': False})
+    return render(request, 'profile/base.html', {'campaigns': campaigns, 'donations': False})
 
 @login_required
 def donations(request):
     current_user_donations = Donation.objects.filter(donator_id=request.user.id)
     campaigns = Campaign.objects.all()
-    return render(request, 'profile/index.html', {'current_user_donations': current_user_donations,
+    return render(request, 'profile/base.html', {'current_user_donations': current_user_donations,
     'campaigns':campaigns, 'donations': True})
 
 @login_required

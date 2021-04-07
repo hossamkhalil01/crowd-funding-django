@@ -1,0 +1,57 @@
+{% extends 'layouts/base-default.html' %}
+{% load static %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+  <link rel="stylesheet" href="{% static 'home/home.css' %}"/>
+{% endblock stylesheets %}
+
+{% block content %}
+    <!-- Page content -->
+<div id="page-content-wrapper">
+  <div class="page-content">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12">
+                  <!--Main layout-->
+                  <main class="">
+                      <div class="container-fluid text-xs-center" style="height: 535px;">
+                          <section class="home-section1">
+                              <div class="slider slick-initialized slick-slider"><!--banner-->
+                                  <div class="slick-list draggable" tabindex="0">
+                                      <div class="slick-track">
+                                          <div class="slick-slide slide slide--has-caption">
+                                              <img style="width: 100%" src="https://raw.githubusercontent.com/pegsbenedict/demos/master/img/slider1-mission.jpg" alt="slide 1" />
+                                              <div class="slide-caption">With expertise in healthcare, education, employment and more. Asian Human Services helps tens of thousands of people every year, from 55 different countries and in 25 different languages to fully participate, prosper and thrive in our community</div>
+                                          </div>
+                                    
+                                          <div class="slick-slide slide slide--has-caption">
+                                              <img style="width: 100%" src="https://raw.githubusercontent.com/pegsbenedict/demos/master/img/slider2-funders.jpg" alt="slide 2" />
+                                              <div class="slide-caption">Copy addressing our funders
+                                          </div>-->
+                                          </div>
+                                          <div class="slick-slide slide slide--has-caption">
+                                              <img style="width: 100%" src="https://raw.githubusercontent.com/pegsbenedict/demos/master/img/slider3-americorps.jpg" />
+                                              <div class="slide-caption">Copy addressing potential AmeriCorps members
+                                          </div>-->
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </section>
+                      </div>
+                  </main>
+                  <!--/Main layout-->
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- ./Page content -->
+</div>
+<!-- ./Page content wrapper -->   
+{% endblock content %}
+ <script src="{% static 'home/home.js' %"></script>
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
