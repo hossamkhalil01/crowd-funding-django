@@ -10,4 +10,6 @@ urlpatterns = [
     path('<int:campaign_id>/report',
          report.campaign_report, name='campaign_report'),
     path('<int:campaign_id>/rate', rating.rate, name='campaign_rate'),
+
+    path('search', campaign.search, name='campaign_search')
 ]
