@@ -66,7 +66,7 @@
               max="100"
           ></progress>
           <h2 class="m-progress-meter-heading">
-              {{donations|intcomma }}EGP
+              {{donations|intcomma }} EGP
               <span class="text-stat text-stat-title">
               raised of {{campaign_info.target|intcomma}} EGP goal</span>
           </h2>
@@ -115,7 +115,7 @@
 
       {% comment %} donation  {% endcomment %}
     <div >
-       <a class="btn btn-lg btn-primary" href="{% url 'campaign_donate' campaign_info.id %}" role="button">Donate now</a>
+       <a class="btn btn-lg btn-success" href="{% url 'campaign_donate' campaign_info.id %}" role="button">Donate now</a>
     </div>
 
     <div>
@@ -123,6 +123,34 @@
     Report
   </button>
   </div>
+
+  {% if donations|div:campaign_info.target < 0.25 and campaign_info.creator.id == user.id %}
+    <button type="button" class="btn btn-lg btn-secondary" data-bs-toggle="modal" data-bs-target="#delete-modal">
+    Cancel Campaign
+    </button>
+  <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Cancel Confirmation </h3>
+        </div>
+        <div class="modal-body">
+        <div class="icon-box">
+					<i class="material-icons"></i>
+				</div>
+          <p>Are you sure you want to cancel this campaign?</p>
+
+          <form method="post" action="{% url 'campaign_cancel' campaign_info.id %}">
+            {% csrf_token %}
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Yes,I'm sure</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+  {% endif %}
   </div>
     {% comment %} rating  {% endcomment %}
         <div class="feedback">
