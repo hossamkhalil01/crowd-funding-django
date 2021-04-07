@@ -223,4 +223,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #comments setup
 PROFILE_APP_NAME = 'user'
 PROFILE_MODEL_NAME = 'UserProfile' # letter case insensitive
-COMMENT_FLAGS_ALLOWED = 5
+COMMENT_FLAGS_ALLOWED = 1

@@ -18,13 +18,15 @@ def edit(request, user_id):
         return render(request, 'user/edit.html', {'current_user': current_user, 'form': form})
     else:
         current_user = User.objects.get(id=user_id)
+        profile = UserProfile.objects.get(user_id=user_id)
         print(request.POST)
         form = UserForm(request.POST, request.FILES, instance=current_user)
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data.get('password'))
+            profile.avatar = user.avatar
+            profile.save()
             user.save()
-            UserProfile.objects.create(user_id= user.id,avatar= user.avatar)
             return redirect('user_profile')
 
 def delete(request, user_id):

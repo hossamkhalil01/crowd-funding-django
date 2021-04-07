@@ -174,7 +174,14 @@ svg {
   border: 0!important;
 }
  /* User ratings */
- 
+ .user-actions{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
 * { box-sizing: border-box; }
 
 .rate {
@@ -218,6 +225,12 @@ svg {
 }
 
 .feedback {
+  margin-top: 2vh;
+  align-items: center;
+    width: 100%;
+}
 
-  box-shadow: 0 4px 30px rgba(0,0,0,.05);
+.feedback h4{
+  margin: auto;
+  width: fit-content;
 }

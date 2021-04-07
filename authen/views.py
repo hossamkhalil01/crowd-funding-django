@@ -11,7 +11,7 @@ from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from user.models import User
+from user.models import User, UserProfile
 
 from .forms import LoginForm, RegisterForm
 
@@ -22,7 +22,7 @@ def register(request):
 
     if form.is_valid():
         user = form.save()
-
+        UserProfile.objects.create(user_id= user.id,avatar= user.avatar)
         # send activation mail
         send_activation_email(request,form.cleaned_data.get('email'), user)
 

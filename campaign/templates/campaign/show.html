@@ -111,19 +111,24 @@
   </div>
 
   {% comment %} actions div  {% endcomment %}
-  <div class= "d-flex align-items-end justify-content-between" >
+  <div class= "user-actions" >
 
       {% comment %} donation  {% endcomment %}
-    <div class="m-auto">
+    <div >
        <a class="btn btn-lg btn-primary" href="{% url 'campaign_donate' campaign_info.id %}" role="button">Donate now</a>
     </div>
 
+    <div>
+      <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Report
+  </button>
+  </div>
+  </div>
     {% comment %} rating  {% endcomment %}
-    <div class="mr-5">
         <div class="feedback">
           <form method="post" action="{% url 'campaign_rate' campaign_info.id %}">
             {% csrf_token %}  
-            <span class="input-group-text">Help this campaign by rating?</span>
+            <h4>Help this campaign by rating?</h4>
             <div class="rate">
               
               {% for level in rating_range %}
@@ -142,15 +147,9 @@
             </div>
           </form>
         </div>
-
-    </div>
-  </div>
-
   {% comment %} Report {% endcomment %}
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-lg btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Report
-  </button>
+
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
