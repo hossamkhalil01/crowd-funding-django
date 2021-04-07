@@ -1,5 +1,7 @@
 from datetime import timedelta
 
+from comment.models import Comment
+from django.contrib.contenttypes.fields import GenericRelation
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
@@ -36,7 +38,7 @@ class Campaign(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name="campaigns")
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     tags = TaggableManager(blank=True)
-
+    comments = GenericRelation(Comment)
     def __str__(self):
         return str(self.title)
 
@@ -73,27 +75,6 @@ class CampaignImage(models.Model):
 
     def __str__(self):
         return str(self.path)
-
-
-class Comment(models.Model):
-    content = models.TextField(max_length=1000, verbose_name='Comment')
-    creation_date = models.DateTimeField(default=timezone.now)
-
-    campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, related_name="comments")
-    creator = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
-    parent = models.ForeignKey('self', null=True, blank=True,on_delete=models.CASCADE, related_name='replies')
-    def __str__(self):
-        return str(self.content)
-
-
-class CommentReport(models.Model):
-    details = models.TextField(max_length=2000, verbose_name='Report details')
-
-    comment = models.ForeignKey(Comment, default=None, on_delete=models.CASCADE)
-    reporter = models.ForeignKey(User, on_delete=models.CASCADE,default=None)
-
-    def __str__(self):
-        return str(self.details)
 
 
 class Donation(models.Model):
