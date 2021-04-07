@@ -20692,4 +20692,12 @@ pre>code.highlight {
     background-color: transparent;
 }
 
+.cut-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /*# sourceMappingURL=dashboard-free.css.map */
