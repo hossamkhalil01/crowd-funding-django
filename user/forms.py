@@ -1,6 +1,8 @@
-from django.forms import ModelForm
-from user.models import User
 from django import forms
+from django.forms import ModelForm
+
+from user.models import User
+
 
 class UserForm(ModelForm):
     password = forms.CharField(
