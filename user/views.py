@@ -22,12 +22,16 @@ def profile(request):
         })
     return render(request, 'profile/index.html', {'campaigns': campaigns})
 
-def edit(request, user_id):
+@login_required
+def donations(request):
+    return render(request, 'profile/index.html', {'campaigns': campaigns})
+
+def edit(request):
     if request.method == "GET":
-        current_user = User.objects.get(id=user_id)
+        current_user = request.user
         return render(request, 'user/edit.html', {'current_user': current_user})
     else:
-        current_user = User.objects.get(id=user_id)
+        current_user = request.user
         print(request.POST)
         form = UserForm(request.POST, request.FILES, instance=current_user)
         if form.is_valid():

@@ -7,6 +7,7 @@ from . import views
 
 urlpatterns = [
     path('profile/', views.profile, name="user_profile"),
-    url(r'^(?P<user_id>\d+)/edit$', views.edit, name='user_edit'),
+    path('donations/', views.donations, name="user_donations"),
+    path('edit/', views.edit, name='user_edit'),
     url(r'^(?P<user_id>\d+)/delete$', views.delete, name='user_delete'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
