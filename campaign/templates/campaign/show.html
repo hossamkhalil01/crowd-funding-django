@@ -1,6 +1,6 @@
 {% extends 'layouts/base-default.html'%}
 {% load static %} {% load humanize %}{% load mathfilters %}
-
+{% load comment_tags %}
 {% block stylesheets %}
   <link rel="stylesheet" type="text/css" href="{% static 'campaign/show.css' %}"/>
 {% endblock %}
@@ -181,7 +181,7 @@
       </div>
     </div>
   </div>
-
+{% render_comments campaign_info request %}
 {% endblock %}
 
 

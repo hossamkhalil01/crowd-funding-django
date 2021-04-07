@@ -1,8 +1,9 @@
-from .models import User
-from .forms import UserForm
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+
+from .forms import UserForm
+from .models import User, UserProfile
 
 # Create your views here.
 
@@ -23,6 +24,7 @@ def edit(request, user_id):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data.get('password'))
             user.save()
+            UserProfile.objects.create(user_id= user.id,avatar= user.avatar)
             return redirect('user_profile')
 
 def delete(request, user_id):
