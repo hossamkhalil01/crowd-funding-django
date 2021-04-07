@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     # templates
     'django.contrib.humanize',
     'mathfilters',
+    'comment',
 ]
 
 AUTH_USER_MODEL = 'user.User'
@@ -219,3 +220,8 @@ MESSAGE_TAGS = {
 # media uploading
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#comments setup
+PROFILE_APP_NAME = 'user'
+PROFILE_MODEL_NAME = 'UserProfile' # letter case insensitive
+COMMENT_FLAGS_ALLOWED = 1

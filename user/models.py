@@ -2,6 +2,7 @@ from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
                                         PermissionsMixin)
 from django.core.validators import RegexValidator
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 
 # Create your models here.
@@ -72,7 +73,7 @@ class User (AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name']
-
+    EMAIL_FIELD = 'email'
     objects = UserManager()
 
     def __str__(self):
@@ -95,3 +96,10 @@ class User (AbstractBaseUser, PermissionsMixin):
 
     def has_module_perms(self, app_label):
         return True 
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar= models.ImageField(upload_to="profile_images", verbose_name='profile picture', default ='profile_images/default-pic.jpeg')
+    def get_absolute_url(self):
+        return reverse('user_profile')

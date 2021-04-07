@@ -41,9 +41,10 @@ svg {
   -webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
 }
 
-.card {
+#description {
   background-color: rgba(252, 246, 250, 0.979);
   border-radius: 1rem;
+  margin: 4vh 4vw;
 }
 
 .details {
@@ -111,9 +112,76 @@ svg {
   margin: auto;
 }
 
+#comments img{
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+}
 
+.carousel img{
+  border-radius: 1rem;
+}
+.carousel-item {
+  position: relative;
+  display: none;
+  float: left;
+  width: 100%;
+  margin-right: -100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: transform .6s ease-in-out;
+}
+.carousel-item.active, .carousel-item-next, .carousel-item-prev {
+  display: block;
+  transition: transform 0.6s ease;
+}
+.carousel-item-next, .carousel-item-prev, .carousel-item.active {
+  display: block;
+}
+.carousel-control-next, .carousel-control-prev {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+  background: 0 0;
+  border: 0;
+  opacity: .5;
+  transition: opacity .15s ease;
+}
+.carousel-control-prev {
+  left: 0;
+}
+.carousel-control-next {
+  right: 0;
+}
+
+.visually-hidden, .visually-hidden-focusable:not(:focus):not(:focus-within) {
+  position: absolute!important;
+  width: 1px!important;
+  height: 1px!important;
+  padding: 0!important;
+  margin: -1px!important;
+  overflow: hidden!important;
+  clip: rect(0,0,0,0)!important;
+  white-space: nowrap!important;
+  border: 0!important;
+}
  /* User ratings */
- 
+ .user-actions{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
 * { box-sizing: border-box; }
 
 .rate {
@@ -157,6 +225,12 @@ svg {
 }
 
 .feedback {
+  margin-top: 2vh;
+  align-items: center;
+    width: 100%;
+}
 
-  box-shadow: 0 4px 30px rgba(0,0,0,.05);
+.feedback h4{
+  margin: auto;
+  width: fit-content;
 }
