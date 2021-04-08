@@ -18,7 +18,7 @@ def get_anonymous_user():
     return User.objects.get_or_create(first_name='Anonymous',last_name='user')[0]
 
 class Category(models.Model):
-    label = models.CharField(max_length=50)
+    label = models.CharField(max_length=50,unique=True)
 
     def __str__(self):
         return str(self.label)

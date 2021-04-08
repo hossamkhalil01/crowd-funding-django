@@ -36,3 +36,9 @@ def show(request, campaign_id):
                'tags': tags, 'donations': donations, 'days': delta.days, 'user_rating': user_rating, 'rating_range': range(5, 0, -1),'similar_camps': similar_camps[:6] }
 
     return render(request, 'campaign/show.html', context)
+
+
+def cancel(request, campaign_id):
+    campaign = get_object_or_404(Campaign, id=campaign_id)
+    campaign.delete()
+    return redirect('user_profile')
