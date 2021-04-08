@@ -1,3 +1,27 @@
+<style>
+
+  .search-area{
+
+      position: relative;
+      z-index: 1;
+  }
+
+  .search-dropdown{
+
+      position: absolute;
+      background-color:ghostwhite;
+      width: 100%;
+      display:none;
+
+  }
+  .search-dropdown-content:hover {
+    background-color: #d6d6c2;
+    cursor:pointer;
+
+  }
+
+</style>
+
  {% load static %}
  <!-- Navbar -->
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
@@ -5,14 +29,22 @@
         <!-- Brand -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{% url 'home' %}">Crowd Funding</a>
         <!-- Form -->
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-          <div class="form-group mb-0">
-            <div class="input-group input-group-alternative">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-search"></i></span>
+        <form method="GET" autocomplete="off" action = "{% url 'campaign_search_all' %}"
+        class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+          {% csrf_token %}
+
+          <div id="focusArea" class="form-group mb-0">
+            <div class="search-area">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+                <input class="form-control" id="searchBar" name="key" placeholder="Find fundraisers by name or tag" type="text">
               </div>
-              <input class="form-control" id="searchBar" placeholder="Find fundraisers by name or tag" type="text">
+              <div id="searchDropDown" class="search-dropdown rounded  border border-2 mt-1 p-2" tabindex="0">
+              </div>
             </div>
+
           </div>
         </form>
         <!-- User -->
@@ -70,51 +102,93 @@
 
   $(document).ready(function(){
 
-    const search_bar = document.getElementById("searchBar")
+    const searchBar = document.getElementById("searchBar");
+    const dropDown = document.getElementById("searchDropDown");
 
-      search_bar.addEventListener('keyup', getResults)
+    // add  listener to show the drop down list
+    searchBar.addEventListener('input', (event) => {
+      // fade in the dropdown
+      dropDown.style.display='block';
+    });
 
+    // add listener to hide the div
+    $(document).mouseup(function(e) 
+    {
+        var container = $("#searchDropDown");
 
-      function getResults(e){
-
-        // get the entered key 
-        let key = e.target.value
-
-        // check if the value is not empty 
-        if (key){
-
-          $.ajax({
-                url: "{% url 'campaign_search' %}"+"?key="+key,
-                type: 'GET',
-                dataType: 'JSON', // added data type
-                success:  function(res){
-
-                    // Convert the results to json
-                    loadResults(JSON.parse(res['by_title']), JSON.parse(res['by_tags']));
-                }
-            });
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!container.is(e.target) && container.has(e.target).length === 0) 
+        {
+            container.hide();
         }
+    });
+
+    // add listener to get results from server
+    searchBar.addEventListener('keyup', getResults)
+
+    function getResults(e){
+
+      // get the entered key 
+      let key = e.target.value
+
+      // check if the value is not empty 
+      if (key){
+
+        $.ajax({
+              url: "{% url 'campaign_search' %}"+"?key="+key,
+              type: 'GET',
+              dataType: 'JSON', // added data type
+              success:  function(res){
+
+                  // Convert the results to json
+                  loadResults(JSON.parse(res['by_title']), JSON.parse(res['by_tags']));
+              }
+          });
       }
-
-
-      function loadResults(campaigns,tags){
-
-          // check if any results is found 
-          if (campaigns || tags){
-            // display the campaigns
-            campaigns.forEach(campaign => console.log(campaign['fields']['title']));
-            // display the tags
-            tags.forEach(tag => console.log(tag['fields']['name']));
-          }
-
-          else {
-
-            console.log("Results not found");
-          }
-
+      else {
+        //clear the search results 
+        $("#searchDropDown").html('');
+        addSeeAll();
       }
+    }
+
+  function loadResults(by_title,by_tags){
+
+        //clear inner html
+        $("#searchDropDown").html("");
+
+        //concat the results
+        matched_campaings = by_title.concat(by_tags);
+
+        // check if any results is found 
+        if (matched_campaings.length){
+          // display the campaigns
+          addMatchedCampaigns(matched_campaings)
+        }
+
+        else {
+          $("#searchDropDown").html("<p class='text-center'>No Matches found</p>");
+        }
+      addSeeAll();
+    }
 
 
   })
- 
+
+  function addSeeAll(){
+      $("#searchDropDown").append("<hr class='dropdown-divider'><button type='submit' class='text-center search-dropdown-content dropdown-item'>See All</button>")
+  }
+
+  function addMatchedCampaigns(campaigns){
+
+      campaigns.forEach(campaign =>{
+        $("#searchDropDown").append(getCampaignAnchor(campaign));
+      })
+  }
+
+  function getCampaignAnchor(campaign){
+
+    return ("<a class='search-dropdown-content dropdown-item' href='/campaign/show/"+campaign['pk']+"'>"+campaign['fields']['title']
+          +"</a>");
+  }
 </script>

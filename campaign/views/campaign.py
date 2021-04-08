@@ -56,10 +56,10 @@ def search(request):
 
         # return matched campaigns
         matched_by_title = Campaign.objects.filter(
-            title__icontains=search_key)[:5]
+            title__icontains=search_key)[:3]
 
         # return matched tags
-        matched_by_tags = get_matched_by_tags(search_key, limit=5)
+        matched_by_tags = get_matched_by_tags(search_key, limit=3)
 
         # serialize the result
         matched_by_title = serializers.serialize('json', matched_by_title)
@@ -70,37 +70,40 @@ def search(request):
 
 def search_all(request):
 
-    # check if there is a key to search by
-    search_key = request.GET.get('key')
+    if request.method == "GET":
+        # check if there is a key to search by
+        search_key = request.GET.get('key')
 
-    if search_key:
+        if search_key:
 
-        # matched by title
-        matched_by_title = Campaign.objects.filter(title__icontains=search_key)
+            # matched by title
+            matched_by_title = Campaign.objects.filter(
+                title__icontains=search_key)
 
-        # return matched tags
-        matched_by_tags = get_matched_by_tags(search_key)
+            # return matched tags
+            matched_by_tags = get_matched_by_tags(search_key)
 
-        context = {"matched_by_title": matched_by_title, "matched_by_tags": matched_by_tags,
-                   "key": search_key}
+            context = {"matched_by_title": matched_by_title, "matched_by_tags": matched_by_tags,
+                       "key": search_key}
 
-        return render(request, 'campaign/search_results.html', context)
+            return render(request, 'campaign/search_results.html', context)
 
-    # return to the same page if no params are passed
-    return redirect(request.META.get('HTTP_REFERER', 'home'))
+        # return to the same page if no params are passed
+        return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 
 def get_matched_by_tags(search_key, limit=None):
 
-    if limit:
-        # return matched tags
-        tags = Tag.objects.filter(name__icontains=search_key)[:limit]
-    else:
-        tags = Tag.objects.filter(name__icontains=search_key)
+    # get the matched tags
+    tags = Tag.objects.filter(name__icontains=search_key)
 
     # get list of tags ids
     tags_ids = []
     for tag in tags:
         tags_ids.append(tag.id)
 
-    return Campaign.objects.filter(tags__id__in=tags_ids)
+    # return the matched tags
+    if limit:
+        return Campaign.objects.filter(tags__id__in=tags_ids)[:limit]
+    else:
+        return Campaign.objects.filter(tags__id__in=tags_ids)
