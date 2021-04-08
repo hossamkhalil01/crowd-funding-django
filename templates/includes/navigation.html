@@ -11,7 +11,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-search"></i></span>
               </div>
-              <input class="form-control" placeholder="Search" type="text">
+              <input class="form-control" id="searchBar" placeholder="Find fundraisers by name or tag" type="text">
             </div>
           </div>
         </form>
@@ -61,3 +61,60 @@
     </nav>
     <!-- End Navbar -->
 
+
+
+<!-- Search bar Script -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script>
+
+  $(document).ready(function(){
+
+    const search_bar = document.getElementById("searchBar")
+
+      search_bar.addEventListener('keyup', getResults)
+
+
+      function getResults(e){
+
+        // get the entered key 
+        let key = e.target.value
+
+        // check if the value is not empty 
+        if (key){
+
+          $.ajax({
+                url: "{% url 'campaign_search' %}"+"?key="+key,
+                type: 'GET',
+                dataType: 'JSON', // added data type
+                success:  function(res){
+
+                    // Convert the results to json
+                    loadResults(JSON.parse(res['by_title']), JSON.parse(res['by_tags']));
+                }
+            });
+        }
+      }
+
+
+      function loadResults(campaigns,tags){
+
+          // check if any results is found 
+          if (campaigns || tags){
+            // display the campaigns
+            campaigns.forEach(campaign => console.log(campaign['fields']['title']));
+            // display the tags
+            tags.forEach(tag => console.log(tag['fields']['name']));
+          }
+
+          else {
+
+            console.log("Results not found");
+          }
+
+      }
+
+
+  })
+ 
+</script>
