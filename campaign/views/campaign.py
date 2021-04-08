@@ -33,7 +33,8 @@ def show(request, campaign_id):
     delta = timezone.now() - campaign.start_date
     similar_camps = campaign.tags.similar_objects()
     context = {'campaign_info': campaign, 'images': images, 'rating': average_rating*20,
-               'tags': tags, 'donations': donations, 'days': delta.days, 'user_rating': user_rating, 'rating_range': range(5, 0, -1) ,'similar_camps': similar_camps}
+               'tags': tags, 'donations': donations, 'days': delta.days, 'user_rating': user_rating, 'rating_range': range(5, 0, -1), 'similar_camps': similar_camps[:6]}
+
     return render(request, 'campaign/show.html', context)
 
 
