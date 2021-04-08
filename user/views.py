@@ -11,19 +11,8 @@ from .models import User, UserProfile
 
 @login_required
 def profile(request):
-    current_user_campaigns = Campaign.objects.filter(creator_id=request.user.id)
-    campaigns = []
-    for current_user_campaign in current_user_campaigns:
-        one_image = current_user_campaign.images.all()
-        if one_image:
-            one_image = one_image[0]
-            campaigns.append({
-            'id': int(current_user_campaign.id),
-            'title': current_user_campaign.title,
-            'details': current_user_campaign.details,
-            'image': one_image.path.url
-        })
-    return render(request, 'profile/base.html', {'campaigns': campaigns, 'donations': False})
+    current_user_campaigns = Campaign.objects.filter(creator_id=request.user.id) 
+    return render(request, 'profile/base.html', {'campaigns': current_user_campaigns, 'donations': False})
 
 @login_required
 def donations(request):

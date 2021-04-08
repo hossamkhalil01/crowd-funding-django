@@ -34,7 +34,6 @@ class Campaign(models.Model):
     end_date = models.DateTimeField(default=in_fourteen_days)
     creation_date = models.DateTimeField(default=timezone.now)
     is_featured = models.BooleanField(default=False)
-
     creator = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name="campaigns")
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     tags = TaggableManager(blank=True)

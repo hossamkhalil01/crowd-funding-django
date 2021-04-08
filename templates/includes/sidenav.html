@@ -99,21 +99,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if 'maps' in segment %} active {% endif %}" href="/maps.html">
-              <i class="ni ni-pin-3 text-orange"></i> Maps
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {% if 'profile' in segment %} active {% endif %}" href="/profile.html">
+            <a class="nav-link {% if 'profile' in segment %} active {% endif %}" href="{% url 'user_edit' %}">
               <i class="ni ni-single-02 text-yellow"></i> User profile
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="/tables.html">
-              <i class="ni ni-bullet-list-67 text-info"></i> Tables
-            </a>
-          </li>
-
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">
               <i class="ni ni-user-run text-red"></i> Logout

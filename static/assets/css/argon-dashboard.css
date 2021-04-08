@@ -6568,6 +6568,8 @@ button.close {
   color: #525f7f;
 }
 
+
+
 .carousel {
   position: relative;
 }
@@ -6687,8 +6689,7 @@ button.close {
 .carousel-control-prev,
 .carousel-control-next {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6696,6 +6697,8 @@ button.close {
   color: #fff;
   text-align: center;
   opacity: 0.5;
+  background: none;
+  border: 0;
 }
 
 .carousel-control-prev:hover,
@@ -6710,10 +6713,12 @@ button.close {
 
 .carousel-control-prev {
   left: 0;
+  background-image: linear-gradient(90deg, rgba(black, .25), rgba(black, .001)), null;
 }
 
 .carousel-control-next {
   right: 0;
+  background-image: linear-gradient(270deg, rgba(black, .25), rgba(black, .001)), null;
 }
 
 .carousel-control-prev-icon,
@@ -20694,7 +20699,7 @@ pre>code.highlight {
 
 .cut-text {
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
