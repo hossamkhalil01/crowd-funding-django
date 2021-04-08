@@ -1,0 +1,19 @@
+<div class="container-fluid mt-3">
+<div class="row">
+
+    {% for campaign in campaigns %}
+      
+      <div class="ml-5 col-3 card card-stats mb-4 mb-xl-4 text-center h-100 shadow">
+
+        <h3 class="card-header">{{campaign.title}}</h3>
+        <img class="card-img-top" src="{{ campaign.images.first.path.url }}" alt="Campaign image">
+        <div class="card-body">
+              <h5>Target: {{campaign.target}} </h5>
+              <p class="card-text cut-text ">{{campaign.details}}</p>
+              <h5 class="card-text cut-text mb-3">By: {{campaign.creator}}</h5>
+            <a href="{% url 'campaign_show' campaign.id %}" class="btn btn-primary">More details</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
