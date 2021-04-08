@@ -42,7 +42,7 @@ svg {
 }
 
 #description {
-  background-color: rgba(252, 246, 250, 0.979);
+  background-color: rgba(251, 246, 252, 0.979);
   border-radius: 1rem;
   margin: 4vh 4vw;
 }
@@ -71,8 +71,13 @@ svg {
 .days p{
   margin: auto;
 }
+
+.carousel-item {
+  max-height: 350px;
+}
 .carousel-item img {
-  max-height: 60vh;
+  max-height: 30vh;
+  min-height: 30vh;
 }
 
 .information {
@@ -91,7 +96,7 @@ svg {
   text-align: center;
   margin: 10px 20px;
   display: inline-block;
-word-break: break-word;
+  word-break: break-word;
 }
 
 .donations progress {
