@@ -11,5 +11,7 @@ urlpatterns = [
          report.campaign_report, name='campaign_report'),
     path('<int:campaign_id>/rate', rating.rate, name='campaign_rate'),
 
-    path('search', campaign.search, name='campaign_search')
+    path('search', campaign.search, name='campaign_search'),
+
+    path('search/all_results', campaign.search_all, name='campaign_search_all'),
 ]

@@ -99,10 +99,19 @@
 
       function loadResults(campaigns,tags){
 
-          // display the campaigns
-          campaigns.forEach(campaign => console.log(campaign['fields']['title']));
-          // display the tags
-          tags.forEach(tag => console.log(tag['fields']['name']));
+          // check if any results is found 
+          if (campaigns || tags){
+            // display the campaigns
+            campaigns.forEach(campaign => console.log(campaign['fields']['title']));
+            // display the tags
+            tags.forEach(tag => console.log(tag['fields']['name']));
+          }
+
+          else {
+
+            console.log("Results not found");
+          }
+
       }
 
 
