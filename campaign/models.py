@@ -50,17 +50,17 @@ class Campaign(models.Model):
         start_date = self.start_date
         end_date = self.end_date
         self.errors = {}
-        if start_date < str(datetime.date.today()):
+        if str(start_date) < str(datetime.date.today()):
             self.errors['date'] = 'invalid date'
             valid = False
-        elif end_date == start_date:
+        elif str(end_date) == str(start_date):
             self.errors['date'] = 'invalid date'
             valid = False
-        elif end_date < start_date:
+        elif str(end_date) < str(start_date):
             self.errors['date'] = 'invalid date'
             # 'End date should be greater than start date.'
             valid = False
-        elif end_date == datetime.date.today():
+        elif str(end_date) == str(datetime.date.today()):
             self.errors['date'] = 'invalid date'
             valid = False
         if self.title == '':

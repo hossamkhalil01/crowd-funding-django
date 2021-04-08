@@ -1,45 +1,47 @@
 from django.shortcuts import render, redirect
-from campaign.models import Category,Campaign
+from campaign.models import Category, Campaign, CampaignImage
 from taggit.models import Tag
+from ..forms import CampaignForm,ImageForm
+from django.forms import modelformset_factory
 import datetime
 
 # Create your views here.
 
 
 def create_campaign(request):
-    uploadCover(request, Campaign.objects.last())
-    # selectTags(request.POST.get('tags').split(), Campaign.objects.last())
-    
-    if request.method == "GET":
-        category = Category.objects.all()
-        tags = Campaign.tags.most_common()[:4]
-        return render(request, 'campaign/campaign_create.html',{'category':category})
+    ImageFormSet = modelformset_factory(CampaignImage, form=ImageForm, extra=2)
+
+    if request.method == 'POST':
+        form = CampaignForm(request.POST)
+        formset = ImageFormSet(request.POST, request.FILES,queryset=CampaignImage.objects.none())
+
+        if form.is_valid() and formset.is_valid():
+            new_form = form.save(commit=False)
+            new_form.creator = request.user
+            new_form.save()
+            form.save_m2m()
+            for form in formset.cleaned_data:
+                # this helps to not crash if the user
+                # do not upload all the photos
+                if form:
+                    image = form['path']
+                    photo = CampaignImage(campaign=new_form, path=image)
+                    photo.save()
+            return redirect(f'/campaign/show/{new_form.id}')
+        context = {
+            'form': form,
+            'formset': formset,
+        }
+        return render(request, 'campaign/campaign_create.html', context)
     else:
-        campaign = Campaign.objects.create(
-            title= request.POST.get('title'),
-            details= request.POST.get('details'),
-            category_id = request.POST.get('category'),
-            target= request.POST.get('target'),
-            start_date = request.POST.get('start_date'),
-            end_date= request.POST.get('end_date'),
-            creator = request.user,
-            
-        )
 
-        if  campaign.clean():
-            campaign.save()
-            return redirect('home')
-        else:
-            return render(request, 'campaign/create.html', {'new_campaign': campaign, 'category': category})
-
-        
-
-def uploadCover(cover, campaign):
-    for file in cover.FILES.getlist('cover'):
-        cover = Campaign.objects.create(campaign =  campaign, cover = file)
+        form = CampaignForm()
+        formset = ImageFormSet(queryset=CampaignImage.objects.none())
+        context = {
+            'form': form,
+            'formset': formset,
+        }
+    return render(request, 'campaign/campaign_create.html', context)
 
 
-# def tagged(request):
 
-#     for tag_name in tags:
-#         newTag = tags.objects.create(campaign = campaign, tags = tag_name)
