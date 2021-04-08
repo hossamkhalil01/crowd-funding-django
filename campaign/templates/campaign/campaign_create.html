@@ -1,0 +1,45 @@
+<div class ="container w-50 mt-5 p-3  border">
+<form id="post_form" method="post" class="form-group">
+    {% csrf_token %}
+    <div class="form-group">
+        <label>Title</label> 
+        <input type="text" name="title" />
+    </div>
+    <div class="form-group">
+        <label>Details</label>
+        <input type="text" name="details" />
+    </div>
+    <div class="form-group">
+        <label>Target</label>
+        <input type="number" name="target" />
+    </div>
+    <div class="form-group">
+        <label>Categories: </label> 
+        <select name="category" >
+            {% for cat in category %}
+                <option value="{{cat.id}}" >{{cat}}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Tags</label>
+        <input type="text" name="tags">
+    </div>
+    <div class="form-group">
+        <label>Start Date</label>
+        <input type="date" name="start_date" />
+    </div>
+    <div class="form-group">
+        <label>End Date</label>
+        <input type="date" name="end_date" />
+    </div>
+    <div class="form-group">
+        <label>Cover Photo</label>
+        <input type="file" name="cover" />
+    </div>
+    <br/>
+    <br/> 
+    <input type="submit" name="submit" value="Submit"  />
+</form>
+</div>
