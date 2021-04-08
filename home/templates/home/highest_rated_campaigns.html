@@ -1,5 +1,7 @@
-  <h1 style="text-align:center;">Highest Rated Campaigns</h1>
-  <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+<div class="container-fluid mt-3">
+  <h1 class="text-center mb-5">Highest Rated Campaigns</h1>
+
+  <div id="carouselExampleFade" class="mt-3 carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-inner">
       {% for highest_rated_campaign in highest_rated_campaigns %}
       {% if forloop.first %}

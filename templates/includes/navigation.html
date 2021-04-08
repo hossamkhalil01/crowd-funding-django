@@ -26,11 +26,10 @@
  <!-- Navbar -->
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
-        <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{% url 'home' %}">Crowd Funding</a>
+        
         <!-- Form -->
         <form method="GET" autocomplete="off" action = "{% url 'campaign_search_all' %}"
-        class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+        class="navbar-search navbar-search-dark form-inline ml-3 d-none d-md-flex">
           {% csrf_token %}
 
           <div id="focusArea" class="form-group mb-0">
@@ -44,12 +43,11 @@
               <div id="searchDropDown" class="search-dropdown rounded  border border-2 mt-1 p-2" tabindex="0">
               </div>
             </div>
-
           </div>
         </form>
         <!-- User -->
         {% if request.user.is_authenticated %}
-        <ul class="navbar-nav align-items-center d-none d-md-flex">
+        <ul class="navbar-nav mr-3 align-items-center d-none d-md-flex">
           <li class="nav-item dropdown">
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">

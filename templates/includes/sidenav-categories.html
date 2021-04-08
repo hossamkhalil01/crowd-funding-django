@@ -12,11 +12,12 @@
       <!-- Collapse -->
       <div class="collapse navbar-collapse" id="sidenav-collapse-main">
         <!-- Navigation -->
+        <h3 class="mb-4 mt-5">Fundrasing Categories</h3>
         <ul class="navbar-nav">
           {% for category in categories %}
           <li class="nav-item">
-          <a class=" nav-link {% if 'index' in segment %} active {% endif %}" href="{% url 'category' category.id %}"> 
-            <i class="ni ni-tv-2 text-primary"></i> {{category.label}}
+            <a class=" nav-link {% if 'index' in segment %} active {% endif %}" href="{% url 'category' category.id %}"> 
+              <i class="ni ni-tv-2 text-primary"></i> {{category.label}}
             </a>
           </li>
           {% endfor %}
