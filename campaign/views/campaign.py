@@ -6,8 +6,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.http import JsonResponse
 from django.core import serializers
-from ..models import Campaign
 from taggit.models import Tag
+
+from ..models import Campaign, CampaignImage, Donation, Rating, Category
 
 
 def show(request, campaign_id):
@@ -34,8 +35,10 @@ def show(request, campaign_id):
     tags = campaign.tags.all()
     delta = timezone.now() - campaign.start_date
     similar_camps = campaign.tags.similar_objects()
+    categories = Category.objects.all()
     context = {'campaign_info': campaign, 'images': images, 'rating': average_rating*20,
-               'tags': tags, 'donations': donations, 'days': delta.days, 'user_rating': user_rating, 'rating_range': range(5, 0, -1), 'similar_camps': similar_camps[:6]}
+               'tags': tags, 'donations': donations, 'days': delta.days, 'user_rating': user_rating,
+               'rating_range': range(5, 0, -1), 'similar_camps': similar_camps[:6], "categories": categories}
 
     return render(request, 'campaign/show.html', context)
 

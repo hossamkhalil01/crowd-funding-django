@@ -13,25 +13,13 @@
       <div class="collapse navbar-collapse" id="sidenav-collapse-main">
         <!-- Navigation -->
         <ul class="navbar-nav">
+          {% for category in categories %}
           <li class="nav-item">
-          <a class=" nav-link {% if 'index' in segment %} active {% endif %}" href="{% url 'user_profile' %}"> <i class="ni ni-tv-2 text-primary"></i> My Campaigns
+          <a class=" nav-link {% if 'index' in segment %} active {% endif %}" href="{% url 'category' category.id %}"> 
+            <i class="ni ni-tv-2 text-primary"></i> {{category.label}}
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link {% if 'icons' in segment %} active {% endif %}" href="{% url 'user_donations' %}">
-              <i class="ni ni-planet text-blue"></i> My Donations
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {% if 'profile' in segment %} active {% endif %}" href="{% url 'user_edit' %}">
-              <i class="ni ni-single-02 text-yellow"></i> User profile
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">
-              <i class="ni ni-user-run text-red"></i> Logout
-            </a>
-          </li>
+          {% endfor %}
         </ul>
       </div>
     </div>
