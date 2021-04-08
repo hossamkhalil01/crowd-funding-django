@@ -1,5 +1,5 @@
 from datetime import timedelta
-
+import datetime
 from comment.models import Comment
 from django.contrib.contenttypes.fields import GenericRelation
 from django.core.exceptions import ValidationError
@@ -40,10 +40,39 @@ class Campaign(models.Model):
     comments = GenericRelation(Comment)
     def __str__(self):
         return str(self.title)
-
+            
+    errors = {}
     def clean(self):
         if (self.is_featured == True and Campaign.objects.filter(is_featured=True).exclude(id=self.id).count() >= 5):
             raise ValidationError({'is_featured':_('You already have five featured campaigns.')})
+        
+        valid = True
+        start_date = self.start_date
+        end_date = self.end_date
+        self.errors = {}
+        if start_date < str(datetime.date.today()):
+            self.errors['date'] = 'invalid date'
+            valid = False
+        elif end_date == start_date:
+            self.errors['date'] = 'invalid date'
+            valid = False
+        elif end_date < start_date:
+            self.errors['date'] = 'invalid date'
+            # 'End date should be greater than start date.'
+            valid = False
+        elif end_date == datetime.date.today():
+            self.errors['date'] = 'invalid date'
+            valid = False
+        if self.title == '':
+            self.errors['title'] = 'title is required'
+            valid = False
+        if self.details == '':
+            self.errors['details'] = 'details is required'
+            valid = False
+        if self.target == '':
+            self.errors['target'] = 'target is required'
+            valid = False
+        return valid
 
 class CampaignReport(models.Model):
     details = models.TextField(max_length=2000)

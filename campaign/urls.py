@@ -2,7 +2,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path
 
-from .views import campaign, donation, rating, report
+from .views import campaign, donation, rating, report, create
 
 urlpatterns = [
     path('show/<int:campaign_id>', campaign.show, name='campaign_show'),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('<int:campaign_id>/cancel',
         campaign.cancel, name='campaign_cancel'),     
     path('<int:campaign_id>/rate', rating.rate, name='campaign_rate'),
+    path('create', create.create_campaign, name='create_campaign'),
 ]
