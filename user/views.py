@@ -1,7 +1,7 @@
 from campaign.models import Campaign, Donation
 from django.contrib.auth.decorators import login_required
 from django.db.models import Avg, Sum
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import EditForm
@@ -36,7 +36,15 @@ def edit(request):
             return redirect('user_profile')
         return render(request, 'user/edit.html', {'current_user': current_user, 'form': form})
 
-def delete(request, user_id):
-    current_user = get_object_or_404(User, id=user_id)
-    current_user.delete()
+@login_required
+def delete(request):
+    request.user.delete()
     return redirect('logout')
+
+@login_required
+def check_password(request):
+    if request.is_ajax and request.method == "POST":
+        password = request.POST.get("pass")
+        is_password_correct = request.user.check_password(password)
+        return JsonResponse({"is_password_correct": is_password_correct})
+
