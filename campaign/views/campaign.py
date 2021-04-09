@@ -1,14 +1,14 @@
 import datetime
 
 from django.contrib import messages
+from django.core import serializers
 from django.db.models import Avg, Sum
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
-from django.http import JsonResponse
-from django.core import serializers
 from taggit.models import Tag
 
-from ..models import Campaign, CampaignImage, Donation, Rating, Category
+from ..models import Campaign, CampaignImage, Category, Donation, Rating
 
 
 def show(request, campaign_id):
@@ -72,7 +72,7 @@ def search(request):
 
 
 def search_all(request):
-
+    categories = Category.objects.all()
     if request.method == "GET":
         # check if there is a key to search by
         search_key = request.GET.get('key')
@@ -87,7 +87,7 @@ def search_all(request):
             matched_by_tags = get_matched_by_tags(search_key)
 
             context = {"matched_by_title": matched_by_title, "matched_by_tags": matched_by_tags,
-                       "key": search_key}
+                       "key": search_key,"categories": categories}
 
             return render(request, 'campaign/search_results.html', context)
 

@@ -1,11 +1,12 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    {% load crispy_forms_tags %}
+{% extends 'layouts/base-categories.html'%}
+{% load static %} {% load humanize %}{% load mathfilters %}    {% load crispy_forms_tags %}
+{% load comment_tags %}
 
+{% block title %}  {{campaign_info.title}} | {% endblock %}
 
-
-
-<style>
+{% block stylesheets %}
+  <link rel="stylesheet" type="text/css" href="{% static 'campaign/show.css' %}"/>
+  <style>
     body {
         font-family: 'Lato', sans-serif
     }
@@ -36,6 +37,10 @@
         margin-right: 10px
     }
 </style>
+{% endblock %}
+
+{% block content %}
+  {% include 'includes/header.html' %}
 
 <div class="container">
     <div class=" text-center mt-5 ">
@@ -99,5 +104,11 @@
         </div> <!-- /.row-->
     </div>
 </div>
+{% endblock %}
+
+
+{% block javascripts %}
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% endblock %}
+
