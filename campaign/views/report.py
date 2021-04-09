@@ -24,5 +24,4 @@ def campaign_report(request, campaign_id):
 
 
 def is_spam(user, campaign):
-
     return (CampaignReport.objects.filter(reporter_id=user, campaign_id=campaign).count() >= 3)

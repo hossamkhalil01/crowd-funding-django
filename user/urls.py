@@ -9,5 +9,6 @@ urlpatterns = [
     path('profile/', views.profile, name="user_profile"),
     path('donations/', views.donations, name="user_donations"),
     path('edit/', views.edit, name='user_edit'),
-    url(r'^(?P<user_id>\d+)/delete$', views.delete, name='user_delete'),
+    path('delete/', views.delete, name='user_delete'),
+    path('check_password/', views.check_password, name='check_password')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

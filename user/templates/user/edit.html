@@ -40,8 +40,6 @@
                 <div class="col-4 text-right">
                   <a class="btn btn btn-danger" data-toggle="modal" data-target="#deleteModal" style="color: white;">Delete Account</a>
                     <!-- Modal -->
-                  <form action="{% url 'user_delete' user.id %}" method="post">
-                      {% csrf_token %}
                     <div class="modal" tabindex="-1" role="dialog" id="deleteModal">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -51,20 +49,19 @@
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
-                          <div class="modal-body">
+                          <div class="modal-body" id="modalBody">
                             <p class="text-left">Enter your password to confirm</p>
                             <div class="align-content-start">
                             <input id="passwordConfirmation" type="password" class="form-control form-control-alternative" placeholder="Enter password">
                           </div>
                           </div>
                           <div class="modal-footer">
-                            <button id="submitPassword" type="submit" class="btn btn-primary">Proceed</button>
+                            <button id="submitPassword" type="button" class="btn btn-primary">Proceed</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Abort</button>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </form>
                 </div>
               </div>
             </div>
@@ -171,5 +168,36 @@
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
+<script>
+  $(document).ready(function() {
+    $("#submitPassword").on('click', submit)
+  })
 
+  function submit(e){
+    let password = $('#passwordConfirmation').val();
+    if (password) {
+      sendRequest(password);
+    }
+  }
+
+  function sendRequest(password){
+    $.ajax({
+      url:"{% url 'check_password' %}",
+      type: "POST",
+      data: {pass: password, csrfmiddlewaretoken: '{{ csrf_token }}'},
+      dataType: "JSON",
+      success: handleSuccess
+    })
+  }
+
+  function handleSuccess(result){
+    isPasswordCorrect = JSON.parse(result["is_password_correct"]);
+    if (! isPasswordCorrect ){
+      $("#modalBody").append("<div class='d-flex justify-content-center mt-4'><p class='alert alert-danger text-center w-75'>Password is not correct</p></div>")
+    }
+    else{
+      window.location.href = "{% url 'user_delete' %}"
+    }
+  }
+</script>
 {% endblock javascripts %}

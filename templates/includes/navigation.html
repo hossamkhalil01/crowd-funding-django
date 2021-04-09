@@ -27,9 +27,14 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         
+        <!-- Create Campaign -->
+        <div>
+          <a href="{%url 'create_campaign' %}" class="btn btn-secondary">Start a Fundraise</a>
+        </div>
+
         <!-- Form -->
         <form method="GET" autocomplete="off" action = "{% url 'campaign_search_all' %}"
-        class="navbar-search navbar-search-dark form-inline ml-3 d-none d-md-flex">
+        class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           {% csrf_token %}
 
           <div id="focusArea" class="form-group mb-0">
@@ -45,6 +50,8 @@
             </div>
           </div>
         </form>
+        
+
         <!-- User -->
         {% if request.user.is_authenticated %}
         <ul class="navbar-nav mr-3 align-items-center d-none d-md-flex">
