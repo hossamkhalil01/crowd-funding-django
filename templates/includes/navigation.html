@@ -189,8 +189,8 @@
     // limit the title's name 
     title = campaign['fields']['title']
 
-    if(title.length > 20) 
-      title = title.substring(0,20)+"..";
+    if(title.length > 35) 
+      title = title.substring(0,35)+"..";
 
 
     return ("<a class='search-dropdown-content dropdown-item' href='/campaign/show/"+campaign['pk']+"'>"+title

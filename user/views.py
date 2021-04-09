@@ -31,11 +31,11 @@ def edit(request):
         profile = UserProfile.objects.get(user_id=current_user.id)
         form = UserForm(request.POST, request.FILES, instance=current_user)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data.get('password'))
+            user = form.save()
+            # user.set_password(form.cleaned_data.get('password'))
             profile.avatar = user.avatar
             profile.save()
-            user.save()
+            # user.save()
         return redirect('user_profile')
 
 def delete(request, user_id):

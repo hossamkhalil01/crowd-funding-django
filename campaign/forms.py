@@ -1,8 +1,9 @@
 
 from django import forms
-from django.utils import timezone
-from .models import Campaign, CampaignImage
 from django.forms import ModelForm
+from django.utils import timezone
+
+from .models import Campaign, CampaignImage
 
 
 class CampaignForm(forms.ModelForm):
@@ -33,7 +34,6 @@ class CampaignForm(forms.ModelForm):
 
 
 class ImageForm(forms.ModelForm):
-    image = forms.ImageField(label='Image')
     class Meta:
         model = CampaignImage
         fields = ['path', ]
