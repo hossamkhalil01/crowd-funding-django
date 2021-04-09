@@ -32,12 +32,12 @@
 
   {% include "includes/sidenav-categories.html" %}
 
-  <div class="main-content">
+  <div class="main-content" style="position: relative;">
 
     {% include "includes/navigation.html" %}
 
     {% block content %}{% endblock content %}
-  {% include "includes/footer.html" %}
+    {% include "includes/footer.html" %}
   </div>
 
   {% include "includes/scripts.html" %}

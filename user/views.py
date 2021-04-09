@@ -4,7 +4,7 @@ from django.db.models import Avg, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import UserForm
+from .forms import EditForm
 from .models import User, UserProfile
 
 # Create your views here.
@@ -29,14 +29,12 @@ def edit(request):
     else:
         current_user = request.user
         profile = UserProfile.objects.get(user_id=current_user.id)
-        form = UserForm(request.POST, request.FILES, instance=current_user)
+        form = EditForm(request.POST, request.FILES, instance=current_user)
         if form.is_valid():
             user = form.save()
-            # user.set_password(form.cleaned_data.get('password'))
             profile.avatar = user.avatar
-            profile.save()
-            # user.save()
-        return redirect('user_profile')
+            return redirect('user_profile')
+        return render(request, 'user/edit.html', {'current_user': current_user, 'form': form})
 
 def delete(request, user_id):
     current_user = get_object_or_404(User, id=user_id)

@@ -22,7 +22,8 @@
     </div>
 
     <div class="container-fluid mt-7">
-
+      <div class=" mb-3">
+      </div>
       <div class="row justify-content-center">
         <div class="col-xl-8 order-xl-1">
           <div class="card bg-secondary shadow">
@@ -37,7 +38,7 @@
                   </div>
                 </div>
                 <div class="col-4 text-right">
-                  <a class="btn btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete Account</a>
+                  <a class="btn btn btn-danger" data-toggle="modal" data-target="#deleteModal" style="color: white;">Delete Account</a>
                     <!-- Modal -->
                   <form action="{% url 'user_delete' user.id %}" method="post">
                       {% csrf_token %}
@@ -51,10 +52,13 @@
                             </button>
                           </div>
                           <div class="modal-body">
-                            <p>Are you sure you want to delete your account?</p>
+                            <p class="text-left">Enter your password to confirm</p>
+                            <div class="align-content-start">
+                            <input id="passwordConfirmation" type="password" class="form-control form-control-alternative" placeholder="Enter password">
+                          </div>
                           </div>
                           <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Proceed</button>
+                            <button id="submitPassword" type="submit" class="btn btn-primary">Proceed</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Abort</button>
                           </div>
                         </div>
@@ -141,6 +145,15 @@
                     </div>
                   </div>
                 </div>
+                <div class="d-flex justify-content-center">
+                <div class="w-75 text-center">
+                {% for field in form %}
+                  {% for error in field.errors %}
+                    <li class="alert alert-danger">{{ error }}</li><br>
+                  {% endfor %}
+                {% endfor %}
+              </div>
+            </div>
                 <div class="row justify-content-center">
                   <button type="submit" class="btn btn-info">Edit Profile</button>
                 </div>
@@ -157,4 +170,6 @@
 {% endblock content %}
 
 <!-- Specific JS goes HERE -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+
+{% endblock javascripts %}
