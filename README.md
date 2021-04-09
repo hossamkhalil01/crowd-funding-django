@@ -3,6 +3,14 @@
 **CrowdFunding** is an Egyptian for-profit crowd funding platform that allows people to raise money for events ranging from life events such as celebrations and graduations to challenging circumstances like accidents and illnesses.
 The project is developed using **Python**, **Django** framework and **MySQL** database.
 
+
+## Deployment
+
+---
+
+http://crowd-fundingapp.herokuapp.com/
+
+
 ## Table of Contents
 
 ---
@@ -42,6 +50,7 @@ The project is developed using **Python**, **Django** framework and **MySQL** da
 To use and run this project you need to:
 
 Before executing the following commands, please install python 3 as stated in the following setup
+
 
 #### Setup Your Environment
 
