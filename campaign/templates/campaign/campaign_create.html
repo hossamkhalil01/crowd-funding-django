@@ -1,45 +1,103 @@
-<div class ="container w-50 mt-5 p-3  border">
-<form id="post_form" method="post" class="form-group">
-    {% csrf_token %}
-    <div class="form-group">
-        <label>Title</label> 
-        <input type="text" name="title" />
-    </div>
-    <div class="form-group">
-        <label>Details</label>
-        <input type="text" name="details" />
-    </div>
-    <div class="form-group">
-        <label>Target</label>
-        <input type="number" name="target" />
-    </div>
-    <div class="form-group">
-        <label>Categories: </label> 
-        <select name="category" >
-            {% for cat in category %}
-                <option value="{{cat.id}}" >{{cat}}</option>
-            {% endfor %}
-        </select>
-    </div>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    {% load crispy_forms_tags %}
 
-    <div class="form-group">
-        <label>Tags</label>
-        <input type="text" name="tags">
+
+
+
+<style>
+    body {
+        font-family: 'Lato', sans-serif
+    }
+
+    h1 {
+        margin-bottom: 40px
+    }
+
+    label {
+        color: #333
+    }
+
+    .btn-send {
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        width: 80%;
+        margin-left: 3px
+    }
+
+    .help-block.with-errors {
+        color: #ff5050;
+        margin-top: 5px
+    }
+
+    .card {
+        margin-left: 10px;
+        margin-right: 10px
+    }
+</style>
+
+<div class="container">
+    <div class=" text-center mt-5 ">
+        <h1>Create New Campaign</h1>
     </div>
-    <div class="form-group">
-        <label>Start Date</label>
-        <input type="date" name="start_date" />
+    <div class="row ">
+        <div class="col-lg-7 mx-auto">
+            <div class="card mt-2 mx-auto p-4 bg-light">
+                <div class="card-body bg-light">
+                    <div class="container">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="controls">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group"> <label>Title</label> {{ form.title }} </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group"> <label>Target</label> {{ form.target }} </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Tags</label>
+                                        <input type="text" data-role="tagsinput" class="form-control" name="tags">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group"> <label>Category
+                                            </label> {{ form.category }} </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group"> <label>Start Date</label> {{ form.start_date }} </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group"> <label>End Date</label> {{ form.end_date }} </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- <div class="form-group"> <label>Photos</label> {{ formset  }} </div> -->
+                                        {{ formset|crispy }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group"> <label>Details</label> {{ form.details }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12"> <input type="submit"
+                                            class="btn btn-success btn-send pt-2 btn-block" name="submit"
+                                            value="Create">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> <!-- /.8 -->
+        </div> <!-- /.row-->
     </div>
-    <div class="form-group">
-        <label>End Date</label>
-        <input type="date" name="end_date" />
-    </div>
-    <div class="form-group">
-        <label>Cover Photo</label>
-        <input type="file" name="cover" />
-    </div>
-    <br/>
-    <br/> 
-    <input type="submit" name="submit" value="Submit"  />
-</form>
 </div>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
