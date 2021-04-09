@@ -43,7 +43,7 @@ def login(request):
 def logout(request):
 
     dj_logout(request)
-    messages.info(request, "You have successfully logged out.")
+    # messages.info(request, "You have successfully logged out.")
     return redirect("login")
 
 
