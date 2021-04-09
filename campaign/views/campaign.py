@@ -45,7 +45,12 @@ def show(request, campaign_id):
 
 def cancel(request, campaign_id):
     campaign = get_object_or_404(Campaign, id=campaign_id)
-    campaign.delete()
+    donations = campaign.donations.all().aggregate(Sum('amount'))[
+        'amount__sum']
+    if donations is None:
+        donations = 0
+    if donations/campaign.target < 0.25:
+        campaign.delete()
     return redirect('user_profile')
 
 
