@@ -32,13 +32,16 @@ def show(request, campaign_id):
         'amount__sum']
     if donations is None:
         donations = 0
+    date_validation = False
+    if campaign.end_date > timezone.now():
+        date_validation = True
     tags = campaign.tags.all()
     delta = timezone.now() - campaign.start_date
     similar_camps = campaign.tags.similar_objects()
     categories = Category.objects.all()
     context = {'campaign_info': campaign, 'images': images, 'rating': average_rating*20,
                'tags': tags, 'donations': donations, 'days': delta.days, 'user_rating': user_rating,
-               'rating_range': range(5, 0, -1), 'similar_camps': similar_camps[:6], "categories": categories}
+               'rating_range': range(5, 0, -1), 'similar_camps': similar_camps[:6], "categories": categories, 'date_validation':date_validation}
 
     return render(request, 'campaign/show.html', context)
 
