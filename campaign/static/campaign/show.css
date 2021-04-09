@@ -314,3 +314,7 @@ svg {
   width:60%;
   height: 60%;
 }
+
+.js-comment-delete{
+  display: none;
+} 
