@@ -48,7 +48,6 @@ var/
 *.egg
 venv
 .idea
-./crowdfunding/settings.py
 **/images
 media/*
 
