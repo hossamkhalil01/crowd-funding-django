@@ -122,7 +122,7 @@
   </div>
   {% endif %}
 </div>
-    {% if campaign.end_date >= now %}
+    {% if date_validation == True %}
     <div class="feedback">
       <form method="post" action="{% url 'campaign_rate' campaign_info.id %}">
         {% csrf_token %}

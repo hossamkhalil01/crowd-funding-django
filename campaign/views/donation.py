@@ -1,8 +1,10 @@
 import datetime
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+
 from ..models import Campaign, Donation
 
 
@@ -17,9 +19,8 @@ def donate(request, campaign_id):
 
         # validate
         if amount and amount.isnumeric():
-            apply_donation(campaign, request.user, amount)
-
-            # messages.success(request, 'Your Donation Was Successfully Completed!')
+            if campaign.end_date > timezone.now():
+                apply_donation(campaign, request.user, amount)
             return redirect('campaign_show', campaign_id)
 
         else:
