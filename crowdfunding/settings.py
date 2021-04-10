@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import dj_database_url
 import os
 from pathlib import Path
 
@@ -18,6 +19,7 @@ from django.contrib.messages import constants as messages
 from .secrets import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = Path(__file__).resolve().parent.parent
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -30,7 +32,7 @@ SECRET_KEY = '94(ix3*n3(q#kk*d$9rmd#7r1&#zcnup&!j65$2!z+(+j!_(g@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -65,6 +67,7 @@ SOCIAL_AUTH_USER_MODEL = 'user.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -152,7 +155,7 @@ AUTHENTICATION_BACKENDS = [
     # google auth
     'social_core.backends.google.GoogleOAuth2',
 
-    ]
+]
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'email',
@@ -165,10 +168,10 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
 # Social keys
 
 SOCIAL_AUTH_FACEBOOK_KEY = SOCIAL_AUTH_FACEBOOK_KEY    # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET =SOCIAL_AUTH_FACEBOOK_SECRET  # App Secret
+SOCIAL_AUTH_FACEBOOK_SECRET = SOCIAL_AUTH_FACEBOOK_SECRET  # App Secret
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY # App ID
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET =  SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET  # App Secret
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY  # App ID
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET  # App Secret
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -186,7 +189,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/assets')
@@ -220,7 +224,10 @@ MESSAGE_TAGS = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-#comments setup
+# comments setup
 PROFILE_APP_NAME = 'user'
-PROFILE_MODEL_NAME = 'UserProfile' # letter case insensitive
+PROFILE_MODEL_NAME = 'UserProfile'  # letter case insensitive
 COMMENT_FLAGS_ALLOWED = 1
+
+prod_db = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
