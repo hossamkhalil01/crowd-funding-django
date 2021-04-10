@@ -1,0 +1,18 @@
+{% extends 'layouts/base-categories.html' %}
+
+{% block title %} {{category.label}} fundraisers| {% endblock title %}
+
+{% block content %}
+ {% include 'includes/header.html' %}
+<h2 class= "mt-5 ml-3"> Campaigns in {{category.label}} fundraising </h2>
+<hr>
+<div class="mt-5 mb-5 container ">
+    <div class="container">
+      {% if campaigns %}
+        {% include 'campaign/_campaign.html' with campaigns=campaigns %}
+      {% else %}
+        <h3 class="text-center mt-5"> There are no running campaigns for this fundraising right now!</h3>
+      {% endif %}
+    </div>
+</div>
+{% endblock content %}

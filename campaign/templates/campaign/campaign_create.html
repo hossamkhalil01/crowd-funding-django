@@ -1,0 +1,113 @@
+{% extends 'layouts/base-categories.html'%}
+{% load static %} {% load humanize %}{% load mathfilters %}    {% load crispy_forms_tags %}
+{% load comment_tags %}
+
+{% block title %}  {{campaign_info.title}} | {% endblock %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" type="text/css" href="{% static 'campaign/show.css' %}"/>
+  <style>
+    body {
+        font-family: 'Lato', sans-serif
+    }
+
+    h1 {
+        margin-bottom: 40px
+    }
+
+    label {
+        color: #333
+    }
+
+    .btn-send {
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        width: 80%;
+        margin-left: 3px
+    }
+
+    .help-block.with-errors {
+        color: #ff5050;
+        margin-top: 5px
+    }
+
+    .card {
+        margin-left: 10px;
+        margin-right: 10px
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+  {% include 'includes/header.html' %}
+
+<div class="container">
+    <div class=" text-center mt-5 ">
+        <h1>Create New Campaign</h1>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 mx-auto">
+            <div class="card mt-2 mx-auto p-4" style="background-color: #F7F6F6">
+                <div class="card-body" style="background-color: #F7F6F6">
+                    <div class="container">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="controls">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group"> <label>Title</label> {{ form.title }} </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group"> <label>Target</label> {{ form.target }} </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Tags</label>
+                                        <input type="text" data-role="tagsinput" class="form-control" name="tags">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group"> <label>Category
+                                            </label> {{ form.category }} </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group"> <label>Start Date</label> {{ form.start_date }} </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group"> <label>End Date</label> {{ form.end_date }} </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="d-flex w-75">
+                                        {{ formset|crispy }}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <div class="form-group"> <label>Details</label> {{ form.details }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3"> <input type="submit"
+                                            class="btn btn-success btn-send pt-2 btn-block" name="submit"
+                                            value="Create">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div> <!-- /.8 -->
+        </div> <!-- /.row-->
+    </div>
+</div>
+{% endblock %}
+
+
+{% block javascripts %}
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+{% endblock %}
+

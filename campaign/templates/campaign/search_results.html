@@ -1,0 +1,39 @@
+{% extends 'layouts/base-categories.html'%}
+{% load static %}
+
+{% block title %}  Search  {% endblock %}
+
+{% block content %}
+    {% include 'includes/header.html' %}
+    
+    <h1 class="m-5"> Search Results for '{{key}}'</h1>
+
+    <div class="container ">
+      <hr class="w-100">
+
+      <h2>Matches by Title </h2>
+      <div class="mt-5 mb-5 container ">
+
+          <div class="container">
+            {% if matched_by_title %}
+              {% include 'campaign/_campaign.html' with campaigns=matched_by_title%}
+            {% else %}
+              <h3 class="text-center mt-5"> No matches found!</h3>
+            {% endif %}
+          </div>
+      </div>
+
+      <hr class="w-100">
+
+      <h2>Matches by Tag </h2>
+      <div class="mt-5 mb-5 container ">
+          <div class="container">
+            {% if matched_by_tags %}
+              {% include 'campaign/_campaign.html' with campaigns=matched_by_tags %}
+            {% else %}
+              <h3 class="text-center mt-5"> No matches found!</h3>
+            {% endif %}
+          </div>
+      </div>
+    </div>
+{% endblock %}

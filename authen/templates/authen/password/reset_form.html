@@ -1,0 +1,27 @@
+{% extends "authen/base.html" %} 
+
+{% block title %} 
+Password Reset
+{% endblock %}
+
+{% block content %} 
+
+<div class="conatiner w-100">
+
+	<div class="card-body w-25 m-auto card mt-5">
+		<h3 class="card-title text-center">Reset password</h3>
+		
+		<div class="card-text">
+			<form  method="POST" >
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="exampleInputEmail1">Enter your email address and we will send you a link to reset your password.</label>
+					<input name="email" type="email" class="form-control form-control-sm" placeholder="Enter your email" required="true">
+				</div>
+
+				<button type="submit" class="btn btn-primary btn-block">Reset my passwrd</button>
+			</form>
+		</div>
+	</div>
+</div>	
+{% endblock %}

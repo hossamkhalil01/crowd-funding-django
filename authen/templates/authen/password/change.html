@@ -1,0 +1,40 @@
+{% extends "authen/base.html" %} 
+
+{% block title %} 
+Change Password
+{% endblock %}
+
+{% block content %} 
+		
+		<div class ="container w-25 mt-5 p-3  border">
+			<form method="POST" class="form-signin">
+        {% csrf_token %}
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Old password</label>
+            <input type="password" name ="old_password" placeholder="Old password" class="form-control form-control-sm">
+          </div>        
+          <div class="form-group">
+            <label for="exampleInputEmail1">New password</label>
+            <input type="password" name="new_password1" placeholder="New password" class="form-control form-control-sm">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Confirm password</label>
+            <input type="password" name="new_password2"  placeholder="Confirm password" class="form-control form-control-sm">
+          </div>
+          <div class=" mb-3">
+            {% for field in form %}
+            {% for error in field.errors %}
+                  <li class="alert alert-danger">{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+			</form>
+		</div>
+
+
+
+{% endblock content %}

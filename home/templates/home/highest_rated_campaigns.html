@@ -1,0 +1,32 @@
+<div class="container-fluid mt-3">
+  <h1 class="text-center mb-5">Highest Rated Campaigns</h1>
+
+  <div id="carouselExampleFade" class="mt-3 carousel slide carousel-fade" data-interval="1000" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      {% for highest_rated_campaign in highest_rated_campaigns %}
+      {% if forloop.first %}
+      <div class="carousel-item active">
+        {% else %}
+      <div class="carousel-item">
+        {% endif %}
+        <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+          <div class="card-body d-flex flex-column align-items-start">
+              <strong class="d-inline-block mb-2 text-primary"><a href="{%url 'campaign_show' highest_rated_campaign.id%}">{{highest_rated_campaign.title}}</a></strong>
+              <p class="card-text mb-auto cut-text">{{highest_rated_campaign.details}}</p>
+          </div>
+            <img class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [200x250]"
+              src="{{highest_rated_campaign.images.first.path.url}}" style="width:400px; height: 250px;">
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <hr>

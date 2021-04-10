@@ -1,0 +1,206 @@
+<style>
+
+  .search-area{
+
+      position: relative;
+      z-index: 1;
+  }
+
+  .search-dropdown{
+
+      position: absolute;
+      background-color:ghostwhite;
+      width: 100%;
+      display:none;
+
+  }
+  .search-dropdown-content:hover {
+    background-color: #d6d6c2;
+    cursor:pointer;
+
+  }
+
+</style>
+
+ {% load static %}
+ <!-- Navbar -->
+    <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+      <div class="container-fluid">
+        
+        <!-- Create Campaign -->
+        <div>
+          <a href="{%url 'create_campaign' %}" class="btn btn-secondary">Start a Fundraise</a>
+        </div>
+
+        <!-- Form -->
+        <form method="GET" autocomplete="off" action = "{% url 'campaign_search_all' %}"
+        class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+          {% csrf_token %}
+
+          <div id="focusArea" class="form-group mb-0">
+            <div class="search-area">
+              <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+                <input class="form-control" id="searchBar" name="key" placeholder="Find fundraisers by name or tag" type="text">
+              </div>
+              <div id="searchDropDown" class="search-dropdown rounded  border border-2 mt-1 p-2" tabindex="0">
+              </div>
+            </div>
+          </div>
+        </form>
+        
+
+        <!-- User -->
+        {% if request.user.is_authenticated %}
+        <ul class="navbar-nav mr-3 align-items-center d-none d-md-flex">
+          <li class="nav-item dropdown">
+            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="media align-items-center">
+                <span class="avatar avatar-sm rounded-circle">
+                  <img alt="Image placeholder" src="{{request.user.avatar.url}}">
+                </span>
+                <div class="media-body ml-2 d-none d-lg-block">
+                  <span class="mb-0 text-sm  font-weight-bold">
+                    {{ request.user }}
+                  </span>
+                </div>
+              </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right" role="menu">
+              <div class=" dropdown-header noti-title">
+                <h6 class="text-overflow m-0">Welcome!</h6>
+              </div>
+              <a href="{% url 'user_profile' %}" class="dropdown-item">
+                <i class="ni ni-single-02"></i>
+                <span>My Profile</span>
+              </a>
+              <a href="{% url 'user_edit' %}" class="dropdown-item">
+                <i class="ni ni-settings-gear-65"></i>
+                <span>Settings</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="{% url 'logout' %}" class="dropdown-item">
+                <i class="ni ni-user-run"></i>
+                <span>Logout</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+
+        {% else %}
+          <form action="{% url 'login' %}" >
+            <input type="submit" value="Sign in" class="btn btn-outline-light btn-border"/>
+          </form>
+        {% endif %}
+      </div>
+    </nav>
+    <!-- End Navbar -->
+
+
+
+<!-- Search bar Script -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script>
+
+  $(document).ready(function(){
+
+    const searchBar = document.getElementById("searchBar");
+    const dropDown = document.getElementById("searchDropDown");
+
+    // add  listener to show the drop down list
+    searchBar.addEventListener('input', (event) => {
+      // fade in the dropdown
+      dropDown.style.display='block';
+    });
+
+    // add listener to hide the div
+    $(document).mouseup(function(e) 
+    {
+        var container = $("#searchDropDown");
+
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!container.is(e.target) && container.has(e.target).length === 0) 
+        {
+            container.hide();
+        }
+    });
+
+    // add listener to get results from server
+    searchBar.addEventListener('keyup', getResults)
+
+    function getResults(e){
+
+      // get the entered key 
+      let key = e.target.value
+
+      // check if the value is not empty 
+      if (key){
+
+        $.ajax({
+              url: "{% url 'campaign_search' %}"+"?key="+key,
+              type: 'GET',
+              dataType: 'JSON', // added data type
+              success:  function(res){
+
+                  // Convert the results to json
+                  loadResults(JSON.parse(res['by_title']), JSON.parse(res['by_tags']));
+              }
+          });
+      }
+      else {
+        //clear the search results 
+        $("#searchDropDown").html('');
+        addSeeAll();
+      }
+    }
+
+  function loadResults(by_title,by_tags){
+
+        //clear inner html
+        $("#searchDropDown").html("");
+
+        //concat the results
+        matched_campaings = by_title.concat(by_tags);
+
+        // check if any results is found 
+        if (matched_campaings.length){
+          // display the campaigns
+          addMatchedCampaigns(matched_campaings)
+        }
+
+        else {
+          $("#searchDropDown").html("<p class='text-center'>No Matches found</p>");
+        }
+      addSeeAll();
+    }
+
+
+  })
+
+  function addSeeAll(){
+      $("#searchDropDown").append("<hr class='dropdown-divider'><button type='submit' class='text-center search-dropdown-content dropdown-item'>See All</button>")
+  }
+
+  function addMatchedCampaigns(campaigns){
+
+      campaigns.forEach(campaign =>{
+        $("#searchDropDown").append(getCampaignAnchor(campaign));
+      })
+  }
+
+  function getCampaignAnchor(campaign){
+
+    // limit the title's name 
+    title = campaign['fields']['title']
+
+    if(title.length > 35) 
+      title = title.substring(0,35)+"..";
+
+
+    return ("<a class='search-dropdown-content dropdown-item' href='/campaign/show/"+campaign['pk']+"'>"+title
+          +"</a>");
+  }
+</script>

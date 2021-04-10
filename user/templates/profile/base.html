@@ -1,0 +1,18 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} {{user}} | {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    {% include 'includes/header.html' %}
+    {% if donations %}
+        {% include 'profile/donations.html' %}    
+    {% else %}
+        {% include 'profile/campaigns.html' %}
+    {% endif %}
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

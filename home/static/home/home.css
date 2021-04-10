@@ -1,0 +1,75 @@
+
+/* Style the button and place it in the middle of the container/image */
+.banner {
+  position: relative;
+}
+
+/* Make the image responsive */
+.banner img {
+  width: 100%;
+  height: auto;
+  margin: 5px 0px;
+  border-radius: 1rem;
+}
+
+.banner .btn {
+  position: absolute;
+  top: 80%;
+  left: 28%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: black;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.banner .btn:hover {
+  background-color: rgb(54, 50, 50);
+  color: wheat;
+}
+
+.btn1 {
+  position: absolute;
+  top: 70%;
+  left: 73%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: black;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.btn1:hover {
+  background-color: rgb(54, 50, 50);
+  color: wheat;
+}
+
+.card-img-top{
+  margin: auto;
+  min-width: 150px;
+  min-height: 150px;
+  max-width: 150px;
+  max-height: 150px;
+}
+
+
+#banner-one{
+  display: none;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  align-items: center;
+}
+#banner-one img{
+  display: block;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 300px;
+  max-height: 300px;
+  border-radius: 1rem;
+}

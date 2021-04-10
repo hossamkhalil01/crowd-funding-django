@@ -1,0 +1,203 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} {{user}} {% endblock title %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
+         style="min-height: 600px; background-image: url(/static/assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Hello</h1>
+            <h2 class="text-white">{{ current_user }}</h2>
+            <p class="text-white mt-0 mb-5">This is your profile page. You can review all your personal information</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid mt-7">
+      <div class=" mb-3">
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-4">
+                    <a href="{% url 'password_change'%}" class="btn btn-primary" role="button" for="id_password"> Change Password</a>
+                </div>
+                <div class="col-4 mb-6">
+                  <div class="card-profile-image">
+                    <img src="..{{current_user.avatar.url}}" class="rounded-circle">
+                  </div>
+                </div>
+                <div class="col-4 text-right">
+                  <a class="btn btn btn-danger" data-toggle="modal" data-target="#deleteModal" style="color: white;">Delete Account</a>
+                    <!-- Modal -->
+                    <div class="modal" tabindex="-1" role="dialog" id="deleteModal">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Confirmation Message</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body" id="modalBody">
+                            <p class="text-left">Enter your password to confirm</p>
+                            <div class="align-content-start">
+                            <input id="passwordConfirmation" type="password" class="form-control form-control-alternative" placeholder="Enter password">
+                          </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button id="submitPassword" type="button" class="btn btn-primary">Proceed</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abort</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form action="{% url 'user_edit' %}" method="post" enctype="multipart/form-data">
+                 {% csrf_token %}
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+
+                  <div class="">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Email</label>
+                        <input type="email" id="input-email" class="form-control form-control-alternative"
+                               placeholder="{{ current_user.email }}" readonly>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_first_name">First name</label>
+                        <input type="text" name="first_name" id="id_first_name" class="form-control form-control-alternative"
+                        value="{{current_user.first_name}}" maxlength="20" required>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_last_name">Last name</label>
+                        <input type="text" name="last_name" id="id_last_name" class="form-control form-control-alternative"
+                        value="{{current_user.last_name}}" maxlength="20" required >
+                      </div>
+                    </div>
+                  </div>
+                        <div class="row">
+                    <div class="col-lg-6">
+
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_phone">Phone</label>
+                        <input id="id_phone" name="phone" class="form-control form-control-alternative" value="{{current_user.phone}}" type="text"
+                        maxlength="15" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_fb_account">Facebook Profile</label>
+                        <input id="id_fb_account" name="fb_account" class="form-control form-control-alternative" value="{{current_user.fb_account}}" type="url">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_avatar">Profile Picture</label>
+                        <input type="file" accept="image/*" name="avatar" id="id_avatar" class="form-control form-control-alternative"
+                               value="{{current_user.avatar}}">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_country">Country</label>
+                        <input type="text" name="country" id="id_country" class="form-control form-control-alternative"
+                               value="{{current_user.country}}" maxlength="20">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="id_birthdate">Birthdate</label>
+                        <input id="id_birthdate" name="birthdate" class="form-control form-control-alternative" value="{{current_user.birthdate|date:'Y-m-d'}}" type="date">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                <div class="w-75 text-center">
+                {% for field in form %}
+                  {% for error in field.errors %}
+                    <li class="alert alert-danger">{{ error }}</li><br>
+                  {% endfor %}
+                {% endfor %}
+              </div>
+            </div>
+                <div class="row justify-content-center">
+                  <button type="submit" class="btn btn-info">Edit Profile</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+<script>
+  $(document).ready(function() {
+    $("#submitPassword").on('click', submit)
+  })
+
+  function submit(e){
+    let password = $('#passwordConfirmation').val();
+    if (password) {
+      sendRequest(password);
+    }
+  }
+
+  function sendRequest(password){
+    $.ajax({
+      url:"{% url 'check_password' %}",
+      type: "POST",
+      data: {pass: password, csrfmiddlewaretoken: '{{ csrf_token }}'},
+      dataType: "JSON",
+      success: handleSuccess
+    })
+  }
+
+  function handleSuccess(result){
+    isPasswordCorrect = JSON.parse(result["is_password_correct"]);
+    if (! isPasswordCorrect ){
+      $("#modalBody").append("<div class='d-flex justify-content-center mt-4'><p class='alert alert-danger text-center w-75'>Password is not correct</p></div>")
+    }
+    else{
+      window.location.href = "{% url 'user_delete' %}"
+    }
+  }
+</script>
+{% endblock javascripts %}

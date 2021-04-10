@@ -1,0 +1,16 @@
+<div class="container-fluid mt--7" style="background-color: #F7F6F6">
+<div class="row">
+    {% for campaign in campaigns %}
+      <div class="mt-5 col-xl-3 col-lg-4">
+        <div class="card card-stats mb-4 mb-xl-4 text-center h-100 shadow" style="width: 16rem;">
+          <img class="card-img-top" src="{{campaign.images.first.path.url}}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title cut-text">{{campaign.title}}</h5>
+            <p class="card-text cut-text">{{campaign.details}}</p>
+            <a href="{%url 'campaign_show' campaign.id%}" class="btn btn-primary">More details</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

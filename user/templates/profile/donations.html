@@ -1,0 +1,46 @@
+{% load humanize %}
+    <div class="container-fluid mt--7">
+
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <h3 class="mb-0">Donations Table</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">Campaign Name</th>
+                    <th scope="col">Donation Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for donation in current_user_donations %}
+                  <tr>
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          {% for campaign in campaigns %}
+                            {% if campaign.id == donation.campaign_id %}
+                              <span class="mb-0 text-sm">{{campaign.title}}</span>
+                            {% endif %}
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </th>
+                    <td>
+                      {{donation.amount|intcomma}} EGP
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

@@ -1,0 +1,17 @@
+  <h1 class="text-center mt-3 ">Latest Campaigns</h1>
+  <div class="container-fluid">
+    <div class="row">
+        {% for latest_campaign in latest_campaigns %}
+          <div class="col-xl-3 col-lg-4">
+            <div class="card card-stats mb-4 mb-xl-4 text-center h-100 shadow" >
+              <img  class="mt-3 card-img-top" src="{{latest_campaign.images.first.path.url}}" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title block-inline cut-text">{{latest_campaign.title}}</h5>
+                <p class="card-text cut-text">{{latest_campaign.details}}</p>
+                <a href="{%url 'campaign_show' latest_campaign.id%}" class="btn btn-primary">More details</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
+  </div>
