@@ -92,5 +92,15 @@ db.sqlite3
 
 .vscode
 
+# media
+media/campaign
+media/profile_images/
+
+#static files
+crowdfunding/staticfiles/
 # credentials
 crowdfunding/secrets.py
+
+
+
+
