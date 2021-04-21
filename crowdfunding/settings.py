@@ -19,7 +19,6 @@ from django.contrib.messages import constants as messages
 from .secrets import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = Path(__file__).resolve().parent.parent
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -30,7 +29,7 @@ CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '94(ix3*n3(q#kk*d$9rmd#7r1&#zcnup&!j65$2!z+(+j!_(g@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -92,6 +91,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -141,7 +142,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_user',
     'social_core.pipeline.user.get_username',
     'social_core.pipeline.social_auth.associate_by_email',
-    'social_core.pipeline.user.create_user',
+    'user.models.create_social_user',
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
@@ -164,6 +165,9 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = [
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'email',
 ]
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'first_name,last_name,email,picture'
+}
 
 # Social keys
 
@@ -189,9 +193,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/assets')
 ]
@@ -221,8 +225,9 @@ MESSAGE_TAGS = {
 }
 
 # media uploading
-MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 
 # comments setup
 PROFILE_APP_NAME = 'user'

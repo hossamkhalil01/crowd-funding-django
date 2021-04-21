@@ -1,0 +1,43 @@
+{% extends 'layouts/base-categories.html' %}
+
+{% load static %}
+
+
+{% block title %} Page not found {% endblock title %}
+
+
+
+{% block content %}
+
+{% include 'includes/header.html' %}
+
+    <!-- Page content -->
+    <div class="container mt--8 pb-5">
+      <div class="mt-5 mb-5 row justify-content-center">
+        <div class="mt-5 mb-5 col-lg-5 col-md-7">
+          <div class="mt-5 card bg-secondary shadow border-0">
+            <div class="card-header bg-transparent pb-5">
+
+              <div class="text-muted text-center mt-2 mb-3">
+                Oups! Error 404      
+              </div>
+
+              <div class="text-center mb-4 text-dark">
+                Page not found - <a href="/">Home</a>
+              </div>
+
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-6">
+              <a href="/" class="text-dark"><p>Home</p></a>
+            </div>
+            <div class="col-6 text-right">
+              <a href="https://github.com/hossamkhalil01/crowd-funding-django" class="text-dark"><p>Get Support</p></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}
