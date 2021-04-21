@@ -28,3 +28,8 @@ def category(request, categoty_id):
 
     return render(request, 'home/category.html', {"campaigns": campaigns,
                                                   "category": category, "categories": categories})
+
+
+def error_404(request, exception):
+    data = {}
+    return render(request, 'home/404.html', data)
